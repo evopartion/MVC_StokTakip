@@ -17,5 +17,17 @@ namespace MVC_StokTakip.Controllers
         {
             return View(db.Birimler.ToList());
         }
+        [HttpGet]
+        public ActionResult Ekle()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Ekle(Birimler p)
+        {
+            db.Birimler.Add(p);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

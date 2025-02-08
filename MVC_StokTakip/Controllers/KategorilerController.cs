@@ -15,5 +15,16 @@ namespace MVC_StokTakip.Controllers
         {
             return View(db.Kategoriler.ToList());
         }
+
+        public ActionResult Ekle()
+        {
+            return View();
+        }
+        public ActionResult Ekle2(Kategoriler p)
+        {
+            db.Kategoriler.Add(p);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -242,6 +242,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Kategoriler\Index.cshtml" />
     <Content Include="Views\Birimler\Index.cshtml" />
+    <Content Include="Views\Kategoriler\Ekle.cshtml" />
+    <Content Include="Views\Birimler\Ekle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
