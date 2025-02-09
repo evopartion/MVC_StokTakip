@@ -31,9 +31,10 @@ namespace MVC_StokTakip.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult GuncelleBilgiGetir(Kategoriler p)
+        public ActionResult GuncelleBilgiGetir(int id)
         {
-            var model = db.Kategoriler.Find(p.ID);
+            
+            var model = db.Kategoriler.Find(id);
             //DB'de olmayan ID için işlem yapılırsa çalışacak
             if (model==null)
             {

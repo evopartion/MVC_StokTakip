@@ -11,7 +11,7 @@
         <div class="form-group">
             @Html.LabelFor(x => x.Kategoriler.Kategori)
             @Html.DropDownList("KategoriID", null, "---Seçiniz---", new { @class = "form-control" })
-            @Html.ValidationMessageFor(x => x.KategoriID, "", new {@class="text-danger"})
+            @Html.ValidationMessageFor(x => x.KategoriID, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
             @Html.LabelFor(x => x.Marka)
@@ -28,3 +28,10 @@
         </div>
     }
 </div>
+
+@section scriptdanger
+    {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+
