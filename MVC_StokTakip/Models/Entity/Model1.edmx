@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MVC_StokTakipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MVC_StokTakipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Birimler">
           <Key>
             <PropertyRef Name="ID" />
@@ -89,10 +89,11 @@
           <Property Name="BarkodNo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AlisFiyati" Type="decimal" Precision="28" Scale="2" Nullable="false" />
           <Property Name="SatisFiyati" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="Miktari" Type="decimal" Precision="28" Scale="2" Nullable="false" />
           <Property Name="KDV" Type="int" Nullable="false" />
           <Property Name="BirimID" Type="int" Nullable="false" />
           <Property Name="Tarih" Type="date" Nullable="false" />
-          <Property Name="Aciklama" Type="varchar" MaxLength="50" />
+          <Property Name="Aciklama" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_Markalar_Kategoriler">
           <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="1" />
@@ -199,8 +200,7 @@
             <End Role="Urunler" EntitySet="Urunler" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MVC_StokTakipModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -298,12 +298,13 @@
           <Property Name="KDV" Type="Int32" Nullable="false" />
           <Property Name="BirimID" Type="Int32" Nullable="false" />
           <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Aciklama" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Aciklama" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Birimler" Relationship="Self.FK_Urunler_Birimler" FromRole="Urunler" ToRole="Birimler" />
           <NavigationProperty Name="Kategoriler" Relationship="Self.FK_Urunler_Kategoriler" FromRole="Urunler" ToRole="Kategoriler" />
           <NavigationProperty Name="Markalar" Relationship="Self.FK_Urunler_Markalar" FromRole="Urunler" ToRole="Markalar" />
           <NavigationProperty Name="Satislar" Relationship="Self.FK_Satislar_Urunler" FromRole="Urunler" ToRole="Satislar" />
           <NavigationProperty Name="Sepet" Relationship="Self.FK_Sepet_Urunler" FromRole="Urunler" ToRole="Sepet" />
+          <Property Name="Miktari" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
         </EntityType>
         <Association Name="FK_Urunler_Birimler">
           <End Role="Birimler" Type="Self.Birimler" Multiplicity="1" />
@@ -498,6 +499,7 @@
           <EntitySetMapping Name="Urunler">
             <EntityTypeMapping TypeName="MVC_StokTakipModel.Urunler">
               <MappingFragment StoreEntitySet="Urunler">
+                <ScalarProperty Name="Miktari" ColumnName="Miktari" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
                 <ScalarProperty Name="MarkaID" ColumnName="MarkaID" />

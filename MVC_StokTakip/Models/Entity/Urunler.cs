@@ -32,6 +32,7 @@ namespace MVC_StokTakip.Models.Entity
         public int BirimID { get; set; }
         public System.DateTime Tarih { get; set; }
         public string Aciklama { get; set; }
+        public decimal Miktari { get; set; }
     
         public virtual Birimler Birimler { get; set; }
         public virtual Kategoriler Kategoriler { get; set; }
