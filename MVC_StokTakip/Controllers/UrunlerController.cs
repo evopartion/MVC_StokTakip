@@ -56,6 +56,20 @@ namespace MVC_StokTakip.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public ActionResult MiktarEkle(int id)
+        {
+            var model = db.Urunler.Find(id);
+            return View();
+        }
+        [HttpPost]
+        public ActionResult MiktarEkle(Urunler p)
+        {
+            var model=db.Urunler.Find(p.ID);
+            model.Miktari = model.Miktari + p.Miktari;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
         [HttpPost]
         public JsonResult GetMarka(int id2)
         {

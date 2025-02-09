@@ -22,6 +22,7 @@
             <th>Açıklama</th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -43,6 +44,7 @@
                  <td>@Html.DisplayFor(x => item.Aciklama)</td>
                  <td>@Html.ActionLink("Sil", "SilBilgiGetir", new { id = item.ID }, new { @class = "btn btn-danger" }) </td>
                  <td>@Html.ActionLink("Güncelle", "GuncelleBilgiGetir", new { id = item.ID }, new { @class = "btn btn-primary" }) </td>
+                 <td>@Html.ActionLink("Miktar Ekle", "MiktarEkle", new { id = item.ID }, new { @class = "btn btn-secondary" }) </td>
              </tr>
          }
     </tbody>
