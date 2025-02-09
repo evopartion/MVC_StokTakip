@@ -243,7 +243,8 @@
     <Content Include="Views\Kategoriler\Index.cshtml" />
     <Content Include="Views\Birimler\Index.cshtml" />
     <Content Include="Views\Kategoriler\Ekle.cshtml" />
-    <Content Include="Views\Birimler\Ekle.cshtml" />
+    <Content Include="Views\Birimler\Kaydet.cshtml" />
+    <Content Include="Views\Kategoriler\GuncelleBilgiGetir.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

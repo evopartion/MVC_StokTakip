@@ -10,7 +10,7 @@ namespace MVC_StokTakip.Controllers
     public class KategorilerController : Controller
     {
         // GET: Kategoriler
-        MVC_StokTakipEntities db=new MVC_StokTakipEntities();
+        MVC_StokTakipEntities db = new MVC_StokTakipEntities();
         public ActionResult Index()
         {
             return View(db.Kategoriler.ToList());
@@ -26,5 +26,24 @@ namespace MVC_StokTakip.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult GuncelleBilgiGetir(Kategoriler p)
+        {
+            var model = db.Kategoriler.Find(p.ID);
+            //DB'de olmayan ID için işlem yapılırsa çalışacak
+            if (model==null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+        public ActionResult Guncelle(Kategoriler p)
+        {
+            db.Entry(p).State=System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
