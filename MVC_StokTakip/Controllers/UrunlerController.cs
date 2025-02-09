@@ -46,6 +46,14 @@ namespace MVC_StokTakip.Controllers
         [HttpPost]
         public ActionResult Ekle(Urunler p)
         {
+            if (!ModelState.IsValid)
+            {
+                var model = new Urunler();
+                Yenile(model);
+                return View(model);
+            }
+            db.Entry(p).State = System.Data.Entity.EntityState.Added;
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
         [HttpPost]

@@ -12,17 +12,61 @@
         <div class="form-group">
             @Html.LabelFor(x => x.Kategoriler.Kategori)
             @Html.DropDownListFor(x => x.KategoriID, Model.KategoriListesi, "Seçiniz", new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Kategoriler.Kategori,"", new {@class ="text-danger"})
         </div>
 
         <div class="form-group">
             @Html.LabelFor(x => x.Markalar.Marka)
             @Html.DropDownListFor(x => x.MarkaID, Model.MarkaListesi, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Markalar.Marka, "", new { @class = "text-danger" })
         </div>
-
+        <div class="form-group">
+            @Html.LabelFor(x => x.UrunAdi)
+            @Html.TextBoxFor(x => x.UrunAdi, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.UrunAdi, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.BarkodNo)
+            @Html.TextBoxFor(x => x.BarkodNo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.BarkodNo, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.AlisFiyati)
+            @Html.TextBoxFor(x => x.AlisFiyati, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.AlisFiyati, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.SatisFiyati)
+            @Html.TextBoxFor(x => x.SatisFiyati, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.SatisFiyati, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Miktari)
+            @Html.TextBoxFor(x => x.Miktari, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Miktari, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.KDV)
+            @Html.TextBoxFor(x => x.KDV, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.KDV, "", new { @class = "text-danger" })
+        </div>
         <div class="form-group">
             @Html.LabelFor(x => x.Birimler.Birim)
             @Html.DropDownListFor(x => x.BirimID, Model.BirimListesi, "Seçiniz", new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Birimler.Birim, "", new { @class = "text-danger" })
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Tarih)
+            @Html.TextBoxFor(x => x.Tarih, new { @class = "form-control", type = "date" })
+            @Html.ValidationMessageFor(x => x.Tarih, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Aciklama)
+            @Html.TextAreaFor(x => x.Aciklama, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Aciklama, "", new { @class = "text-danger" })
+        </div>
+        <div><button class="btn btn-success">Ekle</button></div>
     }
 </div>
 
@@ -42,7 +86,7 @@
                     success: function (data) {
                         $.each(data, function (index, option) {
                             markalist.append('<option value=' + option.Value + '>' + option.Text + '<option>')
-                            
+
                         });
                     }
                 });
@@ -51,3 +95,10 @@
     </script>
 
 }
+@section scriptdanger
+    {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/ondalik.js"></script>
+    }
+
