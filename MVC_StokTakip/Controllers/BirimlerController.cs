@@ -9,6 +9,8 @@ using MVC_StokTakip.Models.Entity;
 
 namespace MVC_StokTakip.Controllers
 {
+    //Sadece giriş yapanların görmesi için tag helper <3
+    [Authorize]
     public class BirimlerController : Controller
     {
         // GET: Birimler

@@ -32,5 +32,6 @@ namespace MVC_StokTakip.Models.Entity
         public virtual DbSet<Satislar> Satislar { get; set; }
         public virtual DbSet<Sepet> Sepet { get; set; }
         public virtual DbSet<Urunler> Urunler { get; set; }
+        public virtual DbSet<Kullanicilar> Kullanicilar { get; set; }
     }
 }

@@ -143,6 +143,9 @@
     <Compile Include="Models\Entity\Kategoriler.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entity\Kullanicilar.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entity\Markalar.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

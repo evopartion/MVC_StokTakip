@@ -8,6 +8,7 @@ using MVC_StokTakip.Models.Entity;
 
 namespace MVC_StokTakip.Controllers
 {
+    [Authorize]
     public class MarkalarController : Controller
     {
         // GET: Markalar

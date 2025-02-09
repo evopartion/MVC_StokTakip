@@ -12,6 +12,8 @@ namespace MVC_StokTakip
     {
         protected void Application_Start()
         {
+            //her controllere tek tek yazmamak için
+            GlobalFilters.Filters.Add(new AuthorizeAttribute());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

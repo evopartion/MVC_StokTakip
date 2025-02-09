@@ -23,11 +23,11 @@ namespace MVC_StokTakip.Models.Entity
             this.Sepet = new HashSet<Sepet>();
             this.MarkaListesi = new List<SelectListItem>();
             MarkaListesi.Insert(0, new SelectListItem { Text = "Önce Kategori Seçilmelidir", Value = "" });
-            
+
         }
 
         public int ID { get; set; }
-        [Required(ErrorMessage ="Boþ Býrakýlamaz")]
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public int KategoriID { get; set; }
         [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public int MarkaID { get; set; }
@@ -40,7 +40,7 @@ namespace MVC_StokTakip.Models.Entity
         [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public decimal? SatisFiyati { get; set; }
         [Required(ErrorMessage = "Boþ Býrakýlamaz")]
-        [Range(0,100,ErrorMessage ="0-100 arasý gir")]
+        [Range(0, 100, ErrorMessage = "0-100 arasý gir")]
         [Display(Name = "K.D.V")]
         public int? KDV { get; set; }
         [Required(ErrorMessage = "Boþ Býrakýlamaz")]
@@ -48,7 +48,7 @@ namespace MVC_StokTakip.Models.Entity
         [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public System.DateTime Tarih { get; set; }
         [Required(ErrorMessage = "Boþ Býrakýlamaz")]
-        [Display(Name ="Açýklama")]
+        [Display(Name = "Açýklama")]
         public string Aciklama { get; set; }
         [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public decimal? Miktari { get; set; }
@@ -65,5 +65,6 @@ namespace MVC_StokTakip.Models.Entity
         public List<SelectListItem> KategoriListesi { get; set; }
         public List<SelectListItem> MarkaListesi { get; set; }
         public List<SelectListItem> BirimListesi { get; set; }
+
     }
 }
