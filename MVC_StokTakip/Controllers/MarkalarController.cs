@@ -61,5 +61,16 @@ namespace MVC_StokTakip.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult SilBilgiGetir(Markalar p)
+        {
+            var getir = db.Markalar.Find(p.ID);
+            return View(getir);
+        }
+        public ActionResult Sil(Markalar p)
+        {
+            db.Entry(p).State = System.Data.Entity.EntityState.Deleted;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

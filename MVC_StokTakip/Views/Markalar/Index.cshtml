@@ -28,8 +28,9 @@
                 <td>@item.Marka</td>
                 <td>@item.Aciklama</td>
                 <td><a href="/Markalar/SilBilgiGetir/@item.ID" class="btn btn-danger">Sil</a></td>
+                @*<td>@Html.ActionLink("Sil Butonu", "Sil", new { id = item.ID }, new { onclick = "return confirm('Kayıt Silinsin Mi?')" })</td>*@      
                 <td><a href="/Markalar/GuncelleBilgiGetir/@item.ID" class="btn btn-primary">Güncelle</a></td>
-                
+
             </tr>
         }
     </tbody>

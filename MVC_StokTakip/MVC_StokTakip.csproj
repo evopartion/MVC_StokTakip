@@ -252,6 +252,7 @@
     <Content Include="Views\Markalar\Index.cshtml" />
     <Content Include="Views\Markalar\Ekle.cshtml" />
     <Content Include="Views\Markalar\GuncelleBilgiGetir.cshtml" />
+    <Content Include="Views\Markalar\SilBilgiGetir.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
