@@ -131,6 +131,7 @@
     <Compile Include="Controllers\BirimlerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KategorilerController.cs" />
+    <Compile Include="Controllers\MarkalarController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -247,6 +248,8 @@
     <Content Include="Views\Kategoriler\GuncelleBilgiGetir.cshtml" />
     <Content Include="Views\Kategoriler\SilBilgiGetir.cshtml" />
     <Content Include="Views\Birimler\SilBilgiGetir.cshtml" />
+    <Content Include="Views\Markalar\Index.cshtml" />
+    <Content Include="Views\Markalar\Ekle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
