@@ -115,7 +115,14 @@ namespace MVC_StokTakip.Controllers
                 return View(model);
 
             }
-            db.Entry(p).State=System.Data.Entity.EntityState.Modified;
+            db.Entry(p).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public ActionResult Sil(int id)
+        {
+            var model = db.Urunler.FirstOrDefault(x => x.ID == id);
+            db.Entry(model).State = System.Data.Entity.EntityState.Deleted;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
