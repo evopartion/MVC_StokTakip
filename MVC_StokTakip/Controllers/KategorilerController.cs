@@ -44,6 +44,21 @@ namespace MVC_StokTakip.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult SilBilgiGetir(Kategoriler p)
+        {
+            var model = db.Kategoriler.Find(p.ID);
+            if (model==null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+        public ActionResult Sil(Kategoriler p)
+        {
+            db.Entry(p).State= System.Data.Entity.EntityState.Deleted;
+            db.SaveChanges ();
+            return RedirectToAction("Index");
+        }
 
     }
 }

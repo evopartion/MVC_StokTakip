@@ -1,0 +1,28 @@
+﻿@model MVC_StokTakip.Models.Entity.Kategoriler
+@{
+    ViewBag.Title = "SilBilgiGetir";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Kategori Silme</h2>
+
+<div class="container">
+    @using (Html.BeginForm("Sil", "Kategoriler"))
+            {
+        <h1></h1>
+        <h4>Kayıt silinsin mi?</h4>
+                <div class="form-group">
+                    @Html.HiddenFor(x=>x.ID)
+                    @Html.LabelFor(x=>x.Kategori)
+                    @Html.DisplayFor(x=>x.Kategori,new {@class="form-control"})
+                </div>
+                <div>
+                    @Html.LabelFor(x=>x.Aciklama)
+                    @Html.DisplayFor(x=>x.Aciklama,new {@class="form-control"})
+                </div>
+                <div>
+                    <button class="btn btn-danger">Kategori Sil</button>
+                    <a href="/Kategoriler/Index/">Ana Sayfa</a>
+                </div>
+            }
+</div>

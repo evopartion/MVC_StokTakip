@@ -45,5 +45,20 @@ namespace MVC_StokTakip.Controllers
             }
             return View("Kaydet", birimgetir);
         }
+        public ActionResult SilBilgiGetir(Birimler p)
+        {
+            var model = db.Birimler.Find(p.ID);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+        public ActionResult Sil(Birimler p)
+        {
+            db.Entry(p).State = System.Data.Entity.EntityState.Deleted;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
