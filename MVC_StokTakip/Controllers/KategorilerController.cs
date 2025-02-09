@@ -22,6 +22,10 @@ namespace MVC_StokTakip.Controllers
         }
         public ActionResult Ekle2(Kategoriler p)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Ekle");
+            }
             db.Kategoriler.Add(p);
             db.SaveChanges();
             return RedirectToAction("Index");

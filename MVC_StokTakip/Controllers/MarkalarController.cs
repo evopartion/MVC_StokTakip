@@ -28,6 +28,13 @@ namespace MVC_StokTakip.Controllers
         [HttpPost]
         public ActionResult Ekle(Markalar m)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.KategoriID = new SelectList(db.Kategoriler, "ID", "Kategori", m.KategoriID);
+                return View();
+            }
+            db.Entry(m).State=System.Data.Entity.EntityState.Added;
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
     }
