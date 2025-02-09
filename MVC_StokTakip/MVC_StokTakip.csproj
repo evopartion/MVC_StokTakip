@@ -258,6 +258,7 @@
     <Content Include="Views\Urunler\Index.cshtml" />
     <Content Include="Views\Urunler\Ekle.cshtml" />
     <Content Include="Views\Urunler\MiktarEkle.cshtml" />
+    <Content Include="Views\Urunler\GuncelleBilgiGetir.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -65,7 +65,7 @@ namespace MVC_StokTakip.Controllers
         [HttpPost]
         public ActionResult MiktarEkle(Urunler p)
         {
-            var model=db.Urunler.Find(p.ID);
+            var model = db.Urunler.Find(p.ID);
             model.Miktari = model.Miktari + p.Miktari;
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -83,6 +83,41 @@ namespace MVC_StokTakip.Controllers
                                   }).ToList();
             model.MarkaListesi.Insert(0, new SelectListItem { Text = "Seçiniz", Value = "" });
             return Json(model.MarkaListesi, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult GuncelleBilgiGetir(int id)
+        {
+            var model = db.Urunler.Find(id);
+            Yenile(model);
+            List<Markalar> markalist = db.Markalar.Where(x => x.KategoriID == model.KategoriID).OrderBy(x => x.Marka).ToList();
+            model.MarkaListesi = (from x in markalist
+                                  select new SelectListItem
+                                  {
+                                      Text = x.Marka,
+                                      Value = x.ID.ToString()
+                                  }).ToList();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Guncelle(Urunler p)
+        {
+            if (!ModelState.IsValid)
+            {
+                var model = db.Urunler.Find(p.ID);
+                Yenile(model);
+                List<Markalar> markalist = db.Markalar.Where(x => x.KategoriID == model.KategoriID).OrderBy(x => x.Marka).ToList();
+                model.MarkaListesi = (from x in markalist
+                                      select new SelectListItem
+                                      {
+                                          Text = x.Marka,
+                                          Value = x.ID.ToString()
+                                      }).ToList();
+                return View(model);
+
+            }
+            db.Entry(p).State=System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

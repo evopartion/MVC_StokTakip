@@ -1,20 +1,19 @@
 ﻿@model MVC_StokTakip.Models.Entity.Urunler
 @{
-    ViewBag.Title = "Ekle";
+    ViewBag.Title = "GuncelleBilgiGetir";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Ürün Ekleme Sayfası</h2>
-
+<h2>Ürün Güncellem Sayfası</h2>
 <div class="container">
-    @using (Html.BeginForm("Ekle", "Urunler", FormMethod.Post))
+    @using (Html.BeginForm("Guncelle", "Urunler", FormMethod.Post))
     {
+        @Html.HiddenFor(x => x.ID)
         <div class="form-group">
             @Html.LabelFor(x => x.Kategoriler.Kategori)
-            @Html.DropDownListFor(x => x.KategoriID, Model.KategoriListesi, "Seçiniz", new { @class = "form-control" })
-            @Html.ValidationMessageFor(x => x.Kategoriler.Kategori, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(x => x.KategoriID, Model.KategoriListesi, "Seçiniz", new { @class = "form-control" });
+            @Html.ValidationMessageFor(x => x.KategoriID, "", new { @class = "text-danger" })
         </div>
-
         <div class="form-group">
             @Html.LabelFor(x => x.Markalar.Marka)
             @Html.DropDownListFor(x => x.MarkaID, Model.MarkaListesi, new { @class = "form-control" })
@@ -58,7 +57,7 @@
 
         <div class="form-group">
             @Html.LabelFor(x => x.Tarih)
-            @Html.TextBoxFor(x => x.Tarih, new { @class = "form-control", type = "date", @Value = Model.Tarih.ToString("yyyy-MM-dd") })
+            @Html.TextBoxFor(x => x.Tarih, new { @class = "form-control", type = "date", @Value=Model.Tarih.ToString("yyyy-MM-dd") })
             @Html.ValidationMessageFor(x => x.Tarih, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
@@ -66,10 +65,10 @@
             @Html.TextAreaFor(x => x.Aciklama, new { @class = "form-control" })
             @Html.ValidationMessageFor(x => x.Aciklama, "", new { @class = "text-danger" })
         </div>
-        <div><button class="btn btn-success">Ekle</button></div>
+        <div><button class="btn btn-primary">Ürün Güncelle</button></div>
+
     }
 </div>
-
 @section scripts
     {
     <script type="text/javascript">
@@ -101,4 +100,3 @@
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Scripts/ondalik.js"></script>
 }
-
