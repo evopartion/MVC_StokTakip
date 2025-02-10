@@ -369,6 +369,7 @@
     <Content Include="Views\Urunler\MiktarEkle.cshtml" />
     <Content Include="Views\Urunler\GuncelleBilgiGetir.cshtml" />
     <Content Include="Views\Kullanicilar\Login.cshtml" />
+    <Content Include="Views\Kullanicilar\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

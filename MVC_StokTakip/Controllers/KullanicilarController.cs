@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using MVC_StokTakip.Models.Entity;
 using System.Web.Security;
+using System.Net.Mail;
+using System.Net;
 
 namespace MVC_StokTakip.Controllers
 {
@@ -36,6 +38,36 @@ namespace MVC_StokTakip.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
+        }
+        [HttpPost]
+        public ActionResult ResetPassword(Kullanicilar k)
+        {
+            var model=db.Kullanicilar.Where(x=>x.Email == k.Email).FirstOrDefault();
+            if (model!=null)
+            {
+                Guid rastgele=Guid.NewGuid();
+                model.Sifre = rastgele.ToString().Substring(0, 8);
+                db.SaveChanges();
+                SmtpClient client=new SmtpClient("smtp.yandex.ru",587);
+                client.EnableSsl = true;
+                MailMessage mail=new MailMessage();
+                mail.From = new MailAddress("gozler.gizler@hotmail.com", "Şifre Sıfırlama");
+                mail.To.Add(model.Email);
+                mail.IsBodyHtml = true;
+                mail.Subject = "Şifre değiştirme isteği";
+                mail.Body += "Merhaba" + model.AdiSoyadi + "</br> Kullanıcı Adınız=" + model.KullaniciAdi + "</br> Şifreniz=" + model.Sifre;
+                NetworkCredential net = new NetworkCredential("gozler.gizler@hotmail.com", "247dd736");
+                client.Credentials = net;
+                client.Send(mail);
+                return RedirectToAction("Login");
+            }
+            ViewBag.hata = "Böyle bir mail yok";
+            return View();
+        }
+        [HttpGet]
+        public ActionResult ResetPassword()
+        {
+            return View();
         }
     }
 }
