@@ -1,4 +1,4 @@
-﻿@model MVC_StokTakip.Models.Entity.Kategoriler
+﻿@model MVC_StokTakip.MyModel.MyKategoriler
 @{
     ViewBag.Title = "Ekle";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,11 +9,11 @@
 <div class="container">
     <form action="/Kategoriler/Ekle2">
         @*istiyosan aç 3 parametreli, css verilebilir
-        @Html.ValidationSummary()*@
+            @Html.ValidationSummary()*@
         <div class="form-group">
             <label>Kategori</label>
             <input type="text" name="Kategori" class="form-control" />
-            @Html.ValidationMessageFor(x=>x.Kategori,null,new {@class="text-danger" })
+            @Html.ValidationMessageFor(x => x.Kategori, null, new { @class = "text-danger" })
         </div>
         <div class="form-group">
             <label>Açıklama</label>
@@ -21,7 +21,7 @@
             @Html.ValidationMessageFor(x => x.Aciklama, null, new { @class = "text-danger" })
 
         </div>
-        
+
         <div class="form-group">
             <button class="btn btn-success">Kategori Ekle</button>
         </div>

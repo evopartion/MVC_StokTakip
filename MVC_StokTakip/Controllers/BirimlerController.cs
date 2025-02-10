@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MVC_StokTakip.Controllers;
 
 using MVC_StokTakip.Models.Entity;
+using MVC_StokTakip.MyModel;
 
 namespace MVC_StokTakip.Controllers
 {
@@ -27,6 +28,7 @@ namespace MVC_StokTakip.Controllers
         [HttpPost]
         public ActionResult Kaydet(Birimler p)
         {
+            
             if (p.ID == 0)
             {
                 db.Birimler.Add(p);
@@ -38,14 +40,18 @@ namespace MVC_StokTakip.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public ActionResult GuncelleBilgiGetir(Birimler p)
+        public ActionResult GuncelleBilgiGetir(int? id)
         {
-            var birimgetir=db.Birimler.Find(p.ID);
-            if (birimgetir == null)
+            var model=db.Birimler.Find(id);
+            MyBirimler b = new MyBirimler();
+            b.ID= model.ID;
+            b.Birim = model.Birim;
+            b.Aciklama = model.Aciklama;
+            if (model == null)
             {
                 return HttpNotFound();
             }
-            return View("Kaydet", birimgetir);
+            return View("Kaydet", b);
         }
         public ActionResult SilBilgiGetir(Birimler p)
         {

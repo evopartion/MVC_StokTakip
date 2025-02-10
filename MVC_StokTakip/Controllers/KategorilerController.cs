@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MVC_StokTakip.Models.Entity;
+using MVC_StokTakip.MyModel;
 
 namespace MVC_StokTakip.Controllers
 {
@@ -37,11 +38,15 @@ namespace MVC_StokTakip.Controllers
             
             var model = db.Kategoriler.Find(id);
             //DB'de olmayan ID için işlem yapılırsa çalışacak
+            MyKategoriler k = new MyKategoriler();
+            k.ID = model.ID;
+            k.Kategori = model.Kategori;
+            k.Aciklama = model.Aciklama;
             if (model==null)
             {
                 return HttpNotFound();
             }
-            return View(model);
+            return View(k);
         }
         public ActionResult Guncelle(Kategoriler p)
         {
@@ -53,6 +58,7 @@ namespace MVC_StokTakip.Controllers
         public ActionResult SilBilgiGetir(Kategoriler p)
         {
             var model = db.Kategoriler.Find(p.ID);
+            
             if (model==null)
             {
                 return HttpNotFound();
