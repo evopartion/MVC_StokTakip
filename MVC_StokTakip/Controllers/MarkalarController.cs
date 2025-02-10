@@ -5,10 +5,11 @@ using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using MVC_StokTakip.Models.Entity;
+using MVC_StokTakip.MyModel;
 
 namespace MVC_StokTakip.Controllers
 {
-    [Authorize(Roles ="A")]
+    [Authorize(Roles = "A")]
     public class MarkalarController : Controller
     {
         // GET: Markalar
@@ -28,7 +29,7 @@ namespace MVC_StokTakip.Controllers
         //ctrl+R+M
         private void SelecteBilgiGetir()
         {
-            var model = new Markalar();
+            var model = new MyMarkalar();
             ViewBag.KategoriID = new SelectList(db.Kategoriler, "ID", "Kategori", model.KategoriID);
         }
 
@@ -46,9 +47,13 @@ namespace MVC_StokTakip.Controllers
         }
         public ActionResult GuncelleBilgiGetir(int id)
         {
+            MyMarkalar model = new MyMarkalar();
             SelecteBilgiGetir();
             var ara = db.Markalar.Find(id);
-            return View(ara);
+            model.ID=ara.ID;
+            model.KategoriID=ara.KategoriID;
+            model.Aciklama=ara.Aciklama;
+            return View(model);
         }
 
         public ActionResult Guncelle(Markalar p)
@@ -58,7 +63,7 @@ namespace MVC_StokTakip.Controllers
                 SelecteBilgiGetir();
                 return View("GuncelleBilgiGetir");
             }
-            db.Entry(p).State=System.Data.Entity.EntityState.Modified;
+            db.Entry(p).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

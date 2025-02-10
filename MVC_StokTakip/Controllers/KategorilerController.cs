@@ -35,7 +35,10 @@ namespace MVC_StokTakip.Controllers
 
         public ActionResult GuncelleBilgiGetir(int id)
         {
-            
+            if (ModelState.IsValid)
+            {
+                return View();
+            }
             var model = db.Kategoriler.Find(id);
             //DB'de olmayan ID için işlem yapılırsa çalışacak
             MyKategoriler k = new MyKategoriler();

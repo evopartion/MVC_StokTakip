@@ -28,23 +28,35 @@ namespace MVC_StokTakip.Controllers
         [HttpPost]
         public ActionResult Kaydet(Birimler p)
         {
-            
+
             if (p.ID == 0)
             {
-                db.Birimler.Add(p);
+                if (p.Birim == null || p.Aciklama == null)
+                {
+                    return View();
+                }
+                db.Entry(p).State = System.Data.Entity.EntityState.Added;
             }
-            else
+            else if (p.ID > 0)
             {
-                db.Entry(p).State = System.Data.Entity.EntityState.Modified;
+                if (true)
+                {
+                    if (p.Birim == null || p.Aciklama == null)
+                    {
+                        return View();
+                    }
+                    db.Entry(p).State = System.Data.Entity.EntityState.Modified;
+                }
             }
+            
             db.SaveChanges();
             return RedirectToAction("Index");
         }
         public ActionResult GuncelleBilgiGetir(int? id)
         {
-            var model=db.Birimler.Find(id);
+            var model = db.Birimler.Find(id);
             MyBirimler b = new MyBirimler();
-            b.ID= model.ID;
+            b.ID = model.ID;
             b.Birim = model.Birim;
             b.Aciklama = model.Aciklama;
             if (model == null)
