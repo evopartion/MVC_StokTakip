@@ -9,6 +9,7 @@
     <!-- Bootstrap core CSS -->
     <link href="@Url.Content("~/css/styledanger.css")" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/LoginScript/fonts/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -33,8 +34,43 @@
 
 
 
-                    <li class="nav-item px-lg-3"><a class="nav-link" href="/Kullanicilar/Logout/">Çıkış</a></li>
-                    <li class="nav-item px-lg-3" style="color:ActiveBorder">@User.Identity.Name</a></li>
+                    @*<li class="nav-item px-lg-3"><a class="nav-link" href="/Kullanicilar/Logout/">Çıkış</a></li>*@
+                    @*<li class="nav-item px-lg-3" style="color:ActiveBorder">@User.Identity.Name</a></li>*@
+
+                    @*<li class="nav-item">
+                        <div class="dropdown" style="color:white">
+                            <a href="#" class="nav-link px-lg-4 dropdown" data-toggle="dropdown">
+                                @User.Identity.Name
+                                <i class="fa fa-caret-down" style="color:#ccc" aria-hidden="true"></i>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">
+                                    Bilgileri Güncelle
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    Çıkış
+                                </a>
+                            </div>
+                        </div>
+                    </li>*@
+
+
+                    <li class="nav-item">
+                        <div class="dropdown" style="color:white">
+                            <a href="javascript:void(0);" class="nav-link px-lg-4 dropdown" data-bs-toggle="dropdown">
+                                @User.Identity.Name
+                                <i class="fa fa-caret-down text-secondary" aria-hidden="true"></i>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Bilgileri Güncelle</a>
+                                <a class="dropdown-item" href="/Kullanicilar/Logout/">Çıkış</a>
+                            </div>
+                        </div>
+                    </li>
+
+
+
+
                 </ul>
             </div>
         </div>

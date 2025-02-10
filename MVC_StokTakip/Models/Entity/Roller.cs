@@ -12,19 +12,18 @@ namespace MVC_StokTakip.Models.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Birimler
+    public partial class Roller
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Birimler()
+        public Roller()
         {
-            this.Urunler = new HashSet<Urunler>();
+            this.KullaniciRolleri = new HashSet<KullaniciRolleri>();
         }
     
         public int ID { get; set; }
-        public string Birim { get; set; }
-        public string Aciklama { get; set; }
+        public string Rol { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Urunler> Urunler { get; set; }
+        public virtual ICollection<KullaniciRolleri> KullaniciRolleri { get; set; }
     }
 }

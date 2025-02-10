@@ -19,6 +19,11 @@
         <AssociationConnector Association="MVC_StokTakipModel.FK_Satislar_Urunler" ManuallyRouted="false" />
         <AssociationConnector Association="MVC_StokTakipModel.FK_Sepet_Urunler" ManuallyRouted="false" />
         <EntityTypeShape EntityType="MVC_StokTakipModel.Kullanicilar" Width="1.5" PointX="3.375" PointY="8.75" />
+        <EntityTypeShape EntityType="MVC_StokTakipModel.KullaniciRolleri" Width="1.5" PointX="5.625" PointY="10.25" />
+        <EntityTypeShape EntityType="MVC_StokTakipModel.Roller" Width="1.5" PointX="3.375" PointY="13.375" />
+        <EntityTypeShape EntityType="MVC_StokTakipModel.sysdiagrams" Width="1.5" PointX="8.375" PointY="9.75" />
+        <AssociationConnector Association="MVC_StokTakipModel.FK_KullaniciRolleri_Kullanicilar" />
+        <AssociationConnector Association="MVC_StokTakipModel.FK_KullaniciRolleri_Roller" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

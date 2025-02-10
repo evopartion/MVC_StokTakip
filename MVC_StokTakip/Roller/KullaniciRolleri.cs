@@ -38,8 +38,9 @@ namespace MVC_StokTakip.Roller
         MVC_StokTakipEntities db = new MVC_StokTakipEntities();
         public override string[] GetRolesForUser(string username)
         {
-            var kullanici = db.Kullanicilar.FirstOrDefault(x=>x.KullaniciAdi==username);
+            var kullanici = db.Kullanicilar.FirstOrDefault(x => x.KullaniciAdi == username);
             return new string[] { kullanici.Rol };
+
         }
 
         public override string[] GetUsersInRole(string roleName)

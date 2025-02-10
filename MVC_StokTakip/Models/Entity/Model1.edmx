@@ -35,6 +35,14 @@
           <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Tarih" Type="date" Nullable="false" />
         </EntityType>
+        <EntityType Name="KullaniciRolleri">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciID" Type="int" Nullable="false" />
+          <Property Name="RolID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Markalar">
           <Key>
             <PropertyRef Name="ID" />
@@ -57,6 +65,13 @@
           <Property Name="KayitTarihi" Type="date" Nullable="false" />
           <Property Name="Puani" Type="decimal" Precision="28" Scale="2" Nullable="false" />
           <Property Name="Aciklama" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roller">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rol" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Satislar">
           <Key>
@@ -92,6 +107,16 @@
           <Property Name="Tarih" Type="date" Nullable="false" />
           <Property Name="Saat" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="Urunler">
           <Key>
             <PropertyRef Name="ID" />
@@ -109,6 +134,30 @@
           <Property Name="Tarih" Type="date" Nullable="false" />
           <Property Name="Aciklama" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Association Name="FK_KullaniciRolleri_Kullanicilar">
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+          <End Role="KullaniciRolleri" Type="Self.KullaniciRolleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KullaniciRolleri">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KullaniciRolleri_Roller">
+          <End Role="Roller" Type="Self.Roller" Multiplicity="1" />
+          <End Role="KullaniciRolleri" Type="Self.KullaniciRolleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roller">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KullaniciRolleri">
+              <PropertyRef Name="RolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Markalar_Kategoriler">
           <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="1" />
           <End Role="Markalar" Type="Self.Markalar" Multiplicity="*" />
@@ -185,11 +234,22 @@
           <EntitySet Name="Birimler" EntityType="Self.Birimler" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kullanicilar" EntityType="Self.Kullanicilar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KullaniciRolleri" EntityType="Self.KullaniciRolleri" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Markalar" EntityType="Self.Markalar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Musteriler" EntityType="Self.Musteriler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roller" EntityType="Self.Roller" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Satislar" EntityType="Self.Satislar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sepet" EntityType="Self.Sepet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Urunler" EntityType="Self.Urunler" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_KullaniciRolleri_Kullanicilar" Association="Self.FK_KullaniciRolleri_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="KullaniciRolleri" EntitySet="KullaniciRolleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KullaniciRolleri_Roller" Association="Self.FK_KullaniciRolleri_Roller">
+            <End Role="Roller" EntitySet="Roller" />
+            <End Role="KullaniciRolleri" EntitySet="KullaniciRolleri" />
+          </AssociationSet>
           <AssociationSet Name="FK_Markalar_Kategoriler" Association="Self.FK_Markalar_Kategoriler">
             <End Role="Kategoriler" EntitySet="Kategoriler" />
             <End Role="Markalar" EntitySet="Markalar" />
@@ -426,6 +486,17 @@
             <End Role="Sepet" EntitySet="Sepet" />
           </AssociationSet>
           <EntitySet Name="Kullanicilar" EntityType="MVC_StokTakipModel.Kullanicilar" />
+          <EntitySet Name="KullaniciRolleri" EntityType="MVC_StokTakipModel.KullaniciRolleri" />
+          <EntitySet Name="Roller" EntityType="MVC_StokTakipModel.Roller" />
+          <EntitySet Name="sysdiagrams" EntityType="MVC_StokTakipModel.sysdiagrams" />
+          <AssociationSet Name="FK_KullaniciRolleri_Kullanicilar" Association="MVC_StokTakipModel.FK_KullaniciRolleri_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="KullaniciRolleri" EntitySet="KullaniciRolleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KullaniciRolleri_Roller" Association="MVC_StokTakipModel.FK_KullaniciRolleri_Roller">
+            <End Role="Roller" EntitySet="Roller" />
+            <End Role="KullaniciRolleri" EntitySet="KullaniciRolleri" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Kullanicilar">
           <Key>
@@ -440,7 +511,60 @@
           <Property Name="Adres" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="KullaniciRolleri" Relationship="MVC_StokTakipModel.FK_KullaniciRolleri_Kullanicilar" FromRole="Kullanicilar" ToRole="KullaniciRolleri" />
         </EntityType>
+        <EntityType Name="KullaniciRolleri">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciID" Type="Int32" Nullable="false" />
+          <Property Name="RolID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kullanicilar" Relationship="MVC_StokTakipModel.FK_KullaniciRolleri_Kullanicilar" FromRole="KullaniciRolleri" ToRole="Kullanicilar" />
+          <NavigationProperty Name="Roller" Relationship="MVC_StokTakipModel.FK_KullaniciRolleri_Roller" FromRole="KullaniciRolleri" ToRole="Roller" />
+        </EntityType>
+        <EntityType Name="Roller">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rol" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="KullaniciRolleri" Relationship="MVC_StokTakipModel.FK_KullaniciRolleri_Roller" FromRole="Roller" ToRole="KullaniciRolleri" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_KullaniciRolleri_Kullanicilar">
+          <End Type="MVC_StokTakipModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.KullaniciRolleri" Role="KullaniciRolleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KullaniciRolleri">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KullaniciRolleri_Roller">
+          <End Type="MVC_StokTakipModel.Roller" Role="Roller" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.KullaniciRolleri" Role="KullaniciRolleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roller">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KullaniciRolleri">
+              <PropertyRef Name="RolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -556,6 +680,34 @@
                 <ScalarProperty Name="Sifre" ColumnName="Sifre" />
                 <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KullaniciRolleri">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.KullaniciRolleri">
+              <MappingFragment StoreEntitySet="KullaniciRolleri">
+                <ScalarProperty Name="RolID" ColumnName="RolID" />
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roller">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.Roller">
+              <MappingFragment StoreEntitySet="Roller">
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
