@@ -11,17 +11,32 @@ namespace MVC_StokTakip.Models.Entity
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Kullanicilar
     {
         public int ID { get; set; }
+        [Required(ErrorMessage ="Boþ Geçilemez")]
         public string KullaniciAdi { get; set; }
+        [Required(ErrorMessage = "Boþ Geçilemez")]
         public string Sifre { get; set; }
+        
         public string Rol { get; set; }
+        [Required(ErrorMessage = "Boþ Geçilemez")]
         public string AdiSoyadi { get; set; }
+        [Required(ErrorMessage = "Boþ Geçilemez")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$",
+                   ErrorMessage = "Uygun formatta telefon numarasý giriniz.")]
         public string Telefon { get; set; }
+        [Required(ErrorMessage = "Boþ Geçilemez")]
         public string Adres { get; set; }
+        [Required(ErrorMessage = "Boþ Geçilemez")]
+        [DataType(DataType.EmailAddress)]
+        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$",
+            ErrorMessage = "Lütfen uygun formatta e-mail adresi giriniz.")]
         public string Email { get; set; }
+        [Required(ErrorMessage = "Boþ Geçilemez")]
         public System.DateTime Tarih { get; set; }
     }
 }

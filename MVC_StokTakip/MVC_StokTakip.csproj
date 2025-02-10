@@ -370,6 +370,7 @@
     <Content Include="Views\Urunler\GuncelleBilgiGetir.cshtml" />
     <Content Include="Views\Kullanicilar\Login.cshtml" />
     <Content Include="Views\Kullanicilar\ResetPassword.cshtml" />
+    <Content Include="Views\Kullanicilar\Kaydol.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

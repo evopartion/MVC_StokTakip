@@ -69,5 +69,22 @@ namespace MVC_StokTakip.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public ActionResult Kaydol()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Kaydol(Kullanicilar k)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            k.Rol = "U";
+            db.Entry(k).State=System.Data.Entity.EntityState.Added;
+            db.SaveChanges();
+            return RedirectToAction("Login");
+        }
     }
 }
