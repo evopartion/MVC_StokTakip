@@ -27,7 +27,7 @@ namespace MVC_StokTakip.Controllers
             {
                 //2. parametre remember me
                 FormsAuthentication.SetAuthCookie(k.KullaniciAdi, false);
-                return RedirectToAction("Index", "Kategoriler");
+                return RedirectToAction("Index", "Urunler");
             }
             ViewBag.hata = "Kullanıcı Adı veya Şifre Yanlış";
             return View();
@@ -35,7 +35,7 @@ namespace MVC_StokTakip.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            return View("Login");
+            return RedirectToAction("Login");
         }
     }
 }

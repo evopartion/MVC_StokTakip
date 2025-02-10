@@ -7,7 +7,7 @@ using MVC_StokTakip.Models.Entity;
 
 namespace MVC_StokTakip.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "A")]
     public class KategorilerController : Controller
     {
         // GET: Kategoriler

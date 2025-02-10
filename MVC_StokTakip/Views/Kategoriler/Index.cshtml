@@ -30,4 +30,9 @@
         }
     </tbody>
 </table>
-<div><a href="/Kategoriler/Ekle/" class="btn btn-success" style="margin-top:10px">Kategori Ekle</a></div>
+
+@if (User.IsInRole("F")|| User.IsInRole("B"))
+{
+    <div><a href="/Kategoriler/Ekle/" class="btn btn-success" style="margin-top:10px">Kategori Ekle</a></div>
+}
+
