@@ -21,8 +21,8 @@ namespace MVC_StokTakip.Models.Entity
         {
             this.Satislar = new HashSet<Satislar>();
             this.Sepet = new HashSet<Sepet>();
-            this.MarkaListesi = new List<SelectListItem>();
-            MarkaListesi.Insert(0, new SelectListItem { Text = "Önce Kategori Seçilmelidir", Value = "" });
+            //this.MarkaListesi = new List<SelectListItem>();
+            //MarkaListesi.Insert(0, new SelectListItem { Text = "Önce Kategori Seçilmelidir", Value = "" });
 
         }
 

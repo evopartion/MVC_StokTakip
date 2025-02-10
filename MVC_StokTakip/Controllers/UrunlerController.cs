@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MVC_StokTakip.Models.Entity;
+using MVC_StokTakip.MyModel;
 
 namespace MVC_StokTakip.Controllers
 {
@@ -20,12 +21,12 @@ namespace MVC_StokTakip.Controllers
         [HttpGet]
         public ActionResult Ekle()
         {
-            var model = new Urunler();
+            var model = new MyUrunler();
             Yenile(model);
             return View(model);
         }
 
-        private void Yenile(Urunler model)
+        private void Yenile(MyUrunler model)
         {
             List<Kategoriler> kategorilist = db.Kategoriler.OrderBy(x => x.Kategori).ToList();
             model.KategoriListesi = (from x in kategorilist
@@ -49,7 +50,7 @@ namespace MVC_StokTakip.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var model = new Urunler();
+                var model = new MyUrunler();
                 Yenile(model);
                 return View(model);
             }
@@ -74,7 +75,7 @@ namespace MVC_StokTakip.Controllers
         [HttpPost]
         public JsonResult GetMarka(int id2)
         {
-            var model = new Urunler();
+            var model = new MyUrunler();
             List<Markalar> markaliste = db.Markalar.Where(x => x.KategoriID == id2).OrderBy(x => x.Marka).ToList();
             model.MarkaListesi = (from x in markaliste
                                   select new SelectListItem
@@ -89,15 +90,28 @@ namespace MVC_StokTakip.Controllers
         public ActionResult GuncelleBilgiGetir(int id)
         {
             var model = db.Urunler.Find(id);
-            Yenile(model);
+            var urun = new MyUrunler();
+            urun.ID = model.ID;
+            urun.KategoriID= model.KategoriID;
+            urun.MarkaID = model.MarkaID;
+            urun.UrunAdi=model.UrunAdi;
+            urun.BarkodNo=model.BarkodNo;
+            urun.AlisFiyati=model.AlisFiyati;
+            urun.SatisFiyati = model.SatisFiyati;
+            urun.Miktari=model.Miktari;
+            urun.KDV=model.KDV;
+            urun.BirimID=model.BirimID;
+            urun.Tarih=model.Tarih;
+            urun.Aciklama=model.Aciklama;
+            Yenile(urun);
             List<Markalar> markalist = db.Markalar.Where(x => x.KategoriID == model.KategoriID).OrderBy(x => x.Marka).ToList();
-            model.MarkaListesi = (from x in markalist
+            urun.MarkaListesi = (from x in markalist
                                   select new SelectListItem
                                   {
                                       Text = x.Marka,
                                       Value = x.ID.ToString()
                                   }).ToList();
-            return View(model);
+            return View(urun);
         }
         [HttpPost]
         public ActionResult Guncelle(Urunler p)
@@ -105,15 +119,16 @@ namespace MVC_StokTakip.Controllers
             if (!ModelState.IsValid)
             {
                 var model = db.Urunler.Find(p.ID);
-                Yenile(model);
+                var urun = new MyUrunler();
+                Yenile(urun);
                 List<Markalar> markalist = db.Markalar.Where(x => x.KategoriID == model.KategoriID).OrderBy(x => x.Marka).ToList();
-                model.MarkaListesi = (from x in markalist
+                urun.MarkaListesi = (from x in markalist
                                       select new SelectListItem
                                       {
                                           Text = x.Marka,
                                           Value = x.ID.ToString()
                                       }).ToList();
-                return View(model);
+                return View(urun);
 
             }
             db.Entry(p).State = System.Data.Entity.EntityState.Modified;

@@ -48,7 +48,7 @@ namespace MVC_StokTakip.MyModel
         public decimal? Miktari { get; set; }
 
 
-        //public virtual Birimler Birimler { get; set; }
+        public virtual MyBirimler Birimler { get; set; }
         public virtual MyKategoriler Kategoriler { get; set; }
         public virtual MyMarkalar Markalar { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
