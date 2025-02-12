@@ -27,17 +27,14 @@ namespace MVC_StokTakip.Models.Entity
     
         public virtual DbSet<Birimler> Birimler { get; set; }
         public virtual DbSet<Kategoriler> Kategoriler { get; set; }
+        public virtual DbSet<Kullanicilar> Kullanicilar { get; set; }
+        public virtual DbSet<KullaniciRolleri> KullaniciRolleri { get; set; }
         public virtual DbSet<Markalar> Markalar { get; set; }
         public virtual DbSet<Musteriler> Musteriler { get; set; }
-        public virtual DbSet<Satislar> Satislar { get; set; }
-        public virtual DbSet<Urunler> Urunler { get; set; }
-        public virtual DbSet<Kullanicilar> Kullanicilar { get; set; }
-<<<<<<< HEAD
-        public virtual DbSet<Sepet> Sepet { get; set; }
-=======
-        public virtual DbSet<KullaniciRolleri> KullaniciRolleri { get; set; }
         public virtual DbSet<Roller> Roller { get; set; }
+        public virtual DbSet<Satislar> Satislar { get; set; }
+        public virtual DbSet<Sepet> Sepet { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
->>>>>>> 08cf61039ecaa10a0eeac3ff514d4c20b785fc08
+        public virtual DbSet<Urunler> Urunler { get; set; }
     }
 }

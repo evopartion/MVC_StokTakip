@@ -8,27 +8,27 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>KullaniciID</th>
+            
+           
             <th>Ürün Bilgisi</th>
             <th>Birim Fiyatı</th>
             <th>Mikarı</th>
             <th>Tarih</th>
-            <th>Saat</th>
+           
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <th>@item.ID</th>
-                <th>@item.Kullanicilar.KullaniciAdi</th>
-                <th>@item.Urunler.BarkodNo-@item.Urunler.UrunAdi</th>
+             
+               
+                <th>@item.Urunler.Kategoriler.Kategori @item.Urunler.Markalar.Marka@item.Urunler.BarkodNo-@item.Urunler.UrunAdi</th>
                 <th>@item.BirimFiyati</th>
                 <th>@item.Miktari</th>
                 <th>@item.ToplamFiyati</th>
-                <th>@item.Tarih</th>
-                <th>@item.Saat</th>
+                <th>@item.Tarih.ToString("dd.MM.yy")</th>
+               
             </tr>
         }
     </tbody>

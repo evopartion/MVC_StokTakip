@@ -257,8 +257,8 @@
     <Content Include="LoginScript\vendor\select2\select2.min.js" />
     <Content Include="Models\Entity\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
       <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Entity\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -273,13 +273,6 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\Entity\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Entity\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="LoginScript\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
     <Content Include="LoginScript\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
     <Content Include="LoginScript\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
@@ -341,6 +334,13 @@
     <Content Include="LoginScript\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
     <Content Include="LoginScript\vendor\bootstrap\css\bootstrap.css.map" />
     <Content Include="LoginScript\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <EntityDeploy Include="Models\Entity\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Entity\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />

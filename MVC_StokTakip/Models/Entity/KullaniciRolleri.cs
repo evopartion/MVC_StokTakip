@@ -17,8 +17,5 @@ namespace MVC_StokTakip.Models.Entity
         public int ID { get; set; }
         public int KullaniciID { get; set; }
         public int RolID { get; set; }
-    
-        public virtual Kullanicilar Kullanicilar { get; set; }
-        public virtual Roller Roller { get; set; }
     }
 }
