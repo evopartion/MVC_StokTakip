@@ -16,18 +16,14 @@ namespace MVC_StokTakip.Models.Entity
     {
         public int ID { get; set; }
         public int UrunID { get; set; }
-        public int KategoriID { get; set; }
-        public int MarkaID { get; set; }
-        public string UrunAdi { get; set; }
-        public string BarkodNo { get; set; }
-        public decimal AlisFiyati { get; set; }
+        public decimal BirimFiyati { get; set; }
         public decimal Miktari { get; set; }
         public decimal ToplamFiyati { get; set; }
-        public int KDV { get; set; }
-        public int BirimID { get; set; }
         public System.DateTime Tarih { get; set; }
         public System.DateTime Saat { get; set; }
+        public int KullaniciID { get; set; }
     
+        public virtual Kullanicilar Kullanicilar { get; set; }
         public virtual Urunler Urunler { get; set; }
     }
 }

@@ -133,6 +133,7 @@
     <Compile Include="Controllers\KategorilerController.cs" />
     <Compile Include="Controllers\KullanicilarController.cs" />
     <Compile Include="Controllers\MarkalarController.cs" />
+    <Compile Include="Controllers\SepetController.cs" />
     <Compile Include="Controllers\UrunlerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -375,6 +376,7 @@
     <Content Include="Views\Kullanicilar\Login.cshtml" />
     <Content Include="Views\Kullanicilar\ResetPassword.cshtml" />
     <Content Include="Views\Kullanicilar\Kaydol.cshtml" />
+    <Content Include="Views\Sepet\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

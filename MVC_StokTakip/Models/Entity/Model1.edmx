@@ -28,7 +28,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="KullaniciAdi" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Sifre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Rol" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Rol" Type="varchar" MaxLength="50" />
           <Property Name="AdiSoyadi" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="Telefon" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Adres" Type="varchar" MaxLength="500" Nullable="false" />
@@ -80,17 +80,12 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UrunID" Type="int" Nullable="false" />
-          <Property Name="KategoriID" Type="int" Nullable="false" />
-          <Property Name="MarkaID" Type="int" Nullable="false" />
-          <Property Name="UrunAdi" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="BarkodNo" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="AlisFiyati" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="BirimFiyati" Type="decimal" Precision="28" Scale="2" Nullable="false" />
           <Property Name="Miktari" Type="decimal" Precision="28" Scale="2" Nullable="false" />
           <Property Name="ToplamFiyati" Type="decimal" Precision="28" Scale="2" Nullable="false" />
-          <Property Name="KDV" Type="int" Nullable="false" />
-          <Property Name="BirimID" Type="int" Nullable="false" />
           <Property Name="Tarih" Type="date" Nullable="false" />
           <Property Name="Saat" Type="datetime" Nullable="false" />
+          <Property Name="KullaniciID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Urunler">
           <Key>
@@ -130,6 +125,18 @@
             </Principal>
             <Dependent Role="Satislar">
               <PropertyRef Name="UrunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sepet_Kullanicilar">
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+          <End Role="Sepet" Type="Self.Sepet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sepet">
+              <PropertyRef Name="KullaniciID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -197,6 +204,10 @@
           <AssociationSet Name="FK_Satislar_Urunler" Association="Self.FK_Satislar_Urunler">
             <End Role="Urunler" EntitySet="Urunler" />
             <End Role="Satislar" EntitySet="Satislar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sepet_Kullanicilar" Association="Self.FK_Sepet_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Sepet" EntitySet="Sepet" />
           </AssociationSet>
           <AssociationSet Name="FK_Sepet_Urunler" Association="Self.FK_Sepet_Urunler">
             <End Role="Urunler" EntitySet="Urunler" />
@@ -280,25 +291,6 @@
           <Property Name="Saat" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Urunler" Relationship="Self.FK_Satislar_Urunler" FromRole="Satislar" ToRole="Urunler" />
         </EntityType>
-        <EntityType Name="Sepet">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UrunID" Type="Int32" Nullable="false" />
-          <Property Name="KategoriID" Type="Int32" Nullable="false" />
-          <Property Name="MarkaID" Type="Int32" Nullable="false" />
-          <Property Name="UrunAdi" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BarkodNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AlisFiyati" Type="Decimal" Precision="28" Scale="2" Nullable="false" />
-          <Property Name="Miktari" Type="Decimal" Precision="28" Scale="2" Nullable="false" />
-          <Property Name="ToplamFiyati" Type="Decimal" Precision="28" Scale="2" Nullable="false" />
-          <Property Name="KDV" Type="Int32" Nullable="false" />
-          <Property Name="BirimID" Type="Int32" Nullable="false" />
-          <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Saat" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Urunler" Relationship="Self.FK_Sepet_Urunler" FromRole="Sepet" ToRole="Urunler" />
-        </EntityType>
         <EntityType Name="Urunler">
           <Key>
             <PropertyRef Name="ID" />
@@ -318,8 +310,8 @@
           <NavigationProperty Name="Kategoriler" Relationship="Self.FK_Urunler_Kategoriler" FromRole="Urunler" ToRole="Kategoriler" />
           <NavigationProperty Name="Markalar" Relationship="Self.FK_Urunler_Markalar" FromRole="Urunler" ToRole="Markalar" />
           <NavigationProperty Name="Satislar" Relationship="Self.FK_Satislar_Urunler" FromRole="Urunler" ToRole="Satislar" />
-          <NavigationProperty Name="Sepet" Relationship="Self.FK_Sepet_Urunler" FromRole="Urunler" ToRole="Sepet" />
           <Property Name="Miktari" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <NavigationProperty Name="Sepet" Relationship="MVC_StokTakipModel.FK_Sepet_Urunler" FromRole="Urunler" ToRole="Sepet" />
         </EntityType>
         <Association Name="FK_Urunler_Birimler">
           <End Role="Birimler" Type="Self.Birimler" Multiplicity="1" />
@@ -381,25 +373,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Sepet_Urunler">
-          <End Role="Urunler" Type="Self.Urunler" Multiplicity="1" />
-          <End Role="Sepet" Type="Self.Sepet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Urunler">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Sepet">
-              <PropertyRef Name="UrunID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="MVC_StokTakipEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Birimler" EntityType="Self.Birimler" />
           <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" />
           <EntitySet Name="Markalar" EntityType="Self.Markalar" />
           <EntitySet Name="Musteriler" EntityType="Self.Musteriler" />
           <EntitySet Name="Satislar" EntityType="Self.Satislar" />
-          <EntitySet Name="Sepet" EntityType="Self.Sepet" />
           <EntitySet Name="Urunler" EntityType="Self.Urunler" />
           <AssociationSet Name="FK_Urunler_Birimler" Association="Self.FK_Urunler_Birimler">
             <End Role="Birimler" EntitySet="Birimler" />
@@ -421,12 +400,17 @@
             <End Role="Urunler" EntitySet="Urunler" />
             <End Role="Satislar" EntitySet="Satislar" />
           </AssociationSet>
-          <AssociationSet Name="FK_Sepet_Urunler" Association="Self.FK_Sepet_Urunler">
+          <EntitySet Name="Kullanicilar" EntityType="MVC_StokTakipModel.Kullanicilar" />
+          <EntitySet Name="Sepet" EntityType="MVC_StokTakipModel.Sepet" />
+          <AssociationSet Name="FK_Sepet_Kullanicilar" Association="MVC_StokTakipModel.FK_Sepet_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Sepet" EntitySet="Sepet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sepet_Urunler" Association="MVC_StokTakipModel.FK_Sepet_Urunler">
             <End Role="Urunler" EntitySet="Urunler" />
             <End Role="Sepet" EntitySet="Sepet" />
           </AssociationSet>
-          <EntitySet Name="Kullanicilar" EntityType="MVC_StokTakipModel.Kullanicilar" />
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Kullanicilar">
           <Key>
             <PropertyRef Name="ID" />
@@ -434,14 +418,54 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="KullaniciAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Sifre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Rol" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Rol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AdiSoyadi" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="Telefon" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Adres" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Sepet" Relationship="MVC_StokTakipModel.FK_Sepet_Kullanicilar" FromRole="Kullanicilar" ToRole="Sepet" />
         </EntityType>
-      </Schema>
+        <EntityType Name="Sepet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrunID" Type="Int32" Nullable="false" />
+          <Property Name="BirimFiyati" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="Miktari" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="ToplamFiyati" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Saat" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="KullaniciID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kullanicilar" Relationship="MVC_StokTakipModel.FK_Sepet_Kullanicilar" FromRole="Sepet" ToRole="Kullanicilar" />
+          <NavigationProperty Name="Urunler" Relationship="MVC_StokTakipModel.FK_Sepet_Urunler" FromRole="Sepet" ToRole="Urunler" />
+        </EntityType>
+        <Association Name="FK_Sepet_Kullanicilar">
+          <End Type="MVC_StokTakipModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.Sepet" Role="Sepet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sepet">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sepet_Urunler">
+          <End Type="MVC_StokTakipModel.Urunler" Role="Urunler" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.Sepet" Role="Sepet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sepet">
+              <PropertyRef Name="UrunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -507,25 +531,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sepet">
-            <EntityTypeMapping TypeName="MVC_StokTakipModel.Sepet">
-              <MappingFragment StoreEntitySet="Sepet">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="UrunID" ColumnName="UrunID" />
-                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
-                <ScalarProperty Name="MarkaID" ColumnName="MarkaID" />
-                <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
-                <ScalarProperty Name="BarkodNo" ColumnName="BarkodNo" />
-                <ScalarProperty Name="AlisFiyati" ColumnName="AlisFiyati" />
-                <ScalarProperty Name="Miktari" ColumnName="Miktari" />
-                <ScalarProperty Name="ToplamFiyati" ColumnName="ToplamFiyati" />
-                <ScalarProperty Name="KDV" ColumnName="KDV" />
-                <ScalarProperty Name="BirimID" ColumnName="BirimID" />
-                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
-                <ScalarProperty Name="Saat" ColumnName="Saat" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Urunler">
             <EntityTypeMapping TypeName="MVC_StokTakipModel.Urunler">
               <MappingFragment StoreEntitySet="Urunler">
@@ -555,6 +560,20 @@
                 <ScalarProperty Name="Rol" ColumnName="Rol" />
                 <ScalarProperty Name="Sifre" ColumnName="Sifre" />
                 <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sepet">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.Sepet">
+              <MappingFragment StoreEntitySet="Sepet">
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="Saat" ColumnName="Saat" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="ToplamFiyati" ColumnName="ToplamFiyati" />
+                <ScalarProperty Name="Miktari" ColumnName="Miktari" />
+                <ScalarProperty Name="BirimFiyati" ColumnName="BirimFiyati" />
+                <ScalarProperty Name="UrunID" ColumnName="UrunID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

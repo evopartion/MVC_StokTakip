@@ -11,8 +11,7 @@ namespace MVC_StokTakip.Models.Entity
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Birimler
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,13 +19,11 @@ namespace MVC_StokTakip.Models.Entity
         {
             this.Urunler = new HashSet<Urunler>();
         }
-
+    
         public int ID { get; set; }
-        [Required(ErrorMessage ="Boþ Býrakýlamaz")]
         public string Birim { get; set; }
-        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public string Aciklama { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Urunler> Urunler { get; set; }
     }
