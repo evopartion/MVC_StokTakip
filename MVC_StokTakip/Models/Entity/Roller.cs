@@ -12,33 +12,18 @@ namespace MVC_StokTakip.Models.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Kullanicilar
+    public partial class Roller
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Kullanicilar()
+        public Roller()
         {
-<<<<<<< HEAD
-            this.Sepet = new HashSet<Sepet>();
-=======
             this.KullaniciRolleri = new HashSet<KullaniciRolleri>();
->>>>>>> 08cf61039ecaa10a0eeac3ff514d4c20b785fc08
         }
     
         public int ID { get; set; }
-        public string KullaniciAdi { get; set; }
-        public string Sifre { get; set; }
         public string Rol { get; set; }
-        public string AdiSoyadi { get; set; }
-        public string Telefon { get; set; }
-        public string Adres { get; set; }
-        public string Email { get; set; }
-        public System.DateTime Tarih { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-<<<<<<< HEAD
-        public virtual ICollection<Sepet> Sepet { get; set; }
-=======
         public virtual ICollection<KullaniciRolleri> KullaniciRolleri { get; set; }
->>>>>>> 08cf61039ecaa10a0eeac3ff514d4c20b785fc08
     }
 }

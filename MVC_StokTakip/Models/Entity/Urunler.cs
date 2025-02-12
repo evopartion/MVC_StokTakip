@@ -11,8 +11,12 @@ namespace MVC_StokTakip.Models.Entity
 {
     using System;
     using System.Collections.Generic;
+<<<<<<< HEAD
     using System.Web.Mvc;
 
+=======
+    
+>>>>>>> 08cf61039ecaa10a0eeac3ff514d4c20b785fc08
     public partial class Urunler
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -42,11 +46,14 @@ namespace MVC_StokTakip.Models.Entity
         public virtual ICollection<Satislar> Satislar { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sepet> Sepet { get; set; }
+<<<<<<< HEAD
 
         public List<SelectListItem> KategoriListesi { get; set; }
         public List<SelectListItem> MarkaListesi { get; set; }
         public List<SelectListItem> BirimListesi { get; set; }
 
 
+=======
+>>>>>>> 08cf61039ecaa10a0eeac3ff514d4c20b785fc08
     }
 }
