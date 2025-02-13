@@ -71,5 +71,20 @@ namespace MVC_StokTakip.Controllers
             }
             return HttpNotFound();
         }
+        public ActionResult TotalCount(int? count)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var model=db.Kullanicilar.FirstOrDefault(x=>x.KullaniciAdi==User.Identity.Name);
+                count =db.Sepet.Where(x=>x.KullaniciID==model.ID).Count();
+                ViewBag.Count=count;
+                if (count==0)
+                {
+                    ViewBag.Count = "";
+                }
+                return PartialView();
+            }
+            return HttpNotFound();
+        }
     }
 }

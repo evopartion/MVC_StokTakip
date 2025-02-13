@@ -54,8 +54,14 @@
             </div>
         </li>*@
 
-                    <li class="nav-item px-lg-3"><a class="nav-link" href="/Sepet/Index/">Sepet</a></li>
-
+                <li class="nav-item px-lg-3">
+                    <a class="nav-link" href="/Sepet/Index/">
+                        Sepet
+                        <label>
+                            @{ Html.RenderAction("TotalCount", "Sepet");}
+                        </label>
+                    </a>
+                </li>
                     <li class="nav-item">
                         <div class="dropdown" style="color:white">
                             <a href="javascript:void(0);" class="nav-link px-lg-4 dropdown" data-bs-toggle="dropdown">
