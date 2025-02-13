@@ -37,7 +37,7 @@ namespace MVC_StokTakip.Models.Entity
         [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public decimal? AlisFiyati { get; set; }
         [Required(ErrorMessage = "Boþ Býrakýlamaz")]
-        public decimal? SatisFiyati { get; set; }
+        public decimal SatisFiyati { get; set; }
         [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         [Range(0, 100, ErrorMessage = "0-100 arasý gir")]
         [Display(Name = "K.D.V")]

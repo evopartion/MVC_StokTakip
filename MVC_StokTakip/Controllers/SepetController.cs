@@ -37,5 +37,39 @@ namespace MVC_StokTakip.Controllers
             }
             return HttpNotFound();
         }
+        public ActionResult SepeteEkle(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var kullaniciAdi = User.Identity.Name;
+                var model = db.Kullanicilar.FirstOrDefault(x => x.KullaniciAdi == kullaniciAdi);
+                var u = db.Urunler.Find(id);
+                var sepet = db.Sepet.FirstOrDefault(x => x.KullaniciID == model.ID && x.UrunID == id);
+                if (model!=null)
+                {
+                    if (sepet!=null)
+                    {
+                        sepet.Miktari++;
+                        sepet.ToplamFiyati = u.SatisFiyati * sepet.Miktari;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    var s = new Sepet
+                    {
+                        KullaniciID=model.ID,
+                        UrunID = u.ID,
+                        Miktari=1,
+                        BirimFiyati=u.SatisFiyati,
+                        ToplamFiyati=u.SatisFiyati,
+                        Tarih=DateTime.Now,
+                        Saat=DateTime.Now
+                    };
+                    db.Entry(s).State=System.Data.Entity.EntityState.Added;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            return HttpNotFound();
+        }
     }
 }
