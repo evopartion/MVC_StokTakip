@@ -108,5 +108,12 @@ namespace MVC_StokTakip.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public void DinamikMiktar(int id,decimal miktari)
+        {
+            var model = db.Sepet.Find(id);
+            model.Miktari=miktari;
+            model.ToplamFiyati = model.BirimFiyati * model.Miktari;
+            db.SaveChanges();
+        }
     }
 }
