@@ -9,25 +9,25 @@ namespace MVC_StokTakip.Controllers
 {
     public class SepetController : Controller
     {
-        MVC_StokTakipEntities db= new MVC_StokTakipEntities();
+        MVC_StokTakipEntities db = new MVC_StokTakipEntities();
         // GET: Sepet
         public ActionResult Index(decimal? Tutar)
         {
             if (User.Identity.IsAuthenticated)
             {
                 var kullaniciAdi = User.Identity.Name;
-                var kullanici = db.Kullanicilar.FirstOrDefault(x=>x.KullaniciAdi==kullaniciAdi);
-                var model=db.Sepet.Where(x=>x.KullaniciID==kullanici.ID).ToList();
-                var kid = db.Sepet.FirstOrDefault(x=>x.KullaniciID==kullanici.ID);
-                if (model!=null)
+                var kullanici = db.Kullanicilar.FirstOrDefault(x => x.KullaniciAdi == kullaniciAdi);
+                var model = db.Sepet.Where(x => x.KullaniciID == kullanici.ID).ToList();
+                var kid = db.Sepet.FirstOrDefault(x => x.KullaniciID == kullanici.ID);
+                if (model != null)
                 {
-                    if (kid==null)
+                    if (kid == null)
                     {
                         ViewBag.Tutar = "Sepetinizde ürün bulunmuyor";
                     }
-                    else if (kid!=null)
+                    else if (kid != null)
                     {
-                        Tutar = db.Sepet.Where(x => x.KullaniciID == kid.KullaniciID).Sum(x=>x.ToplamFiyati);
+                        Tutar = db.Sepet.Where(x => x.KullaniciID == kid.KullaniciID).Sum(x => x.ToplamFiyati);
                         ViewBag.Tutar = "Toplam Tutar=" + Tutar + "TL";
 
                     }
@@ -45,9 +45,9 @@ namespace MVC_StokTakip.Controllers
                 var model = db.Kullanicilar.FirstOrDefault(x => x.KullaniciAdi == kullaniciAdi);
                 var u = db.Urunler.Find(id);
                 var sepet = db.Sepet.FirstOrDefault(x => x.KullaniciID == model.ID && x.UrunID == id);
-                if (model!=null)
+                if (model != null)
                 {
-                    if (sepet!=null)
+                    if (sepet != null)
                     {
                         sepet.Miktari++;
                         sepet.ToplamFiyati = u.SatisFiyati * sepet.Miktari;
@@ -56,15 +56,15 @@ namespace MVC_StokTakip.Controllers
                     }
                     var s = new Sepet
                     {
-                        KullaniciID=model.ID,
+                        KullaniciID = model.ID,
                         UrunID = u.ID,
-                        Miktari=1,
-                        BirimFiyati=u.SatisFiyati,
-                        ToplamFiyati=u.SatisFiyati,
-                        Tarih=DateTime.Now,
-                        Saat=DateTime.Now
+                        Miktari = 1,
+                        BirimFiyati = u.SatisFiyati,
+                        ToplamFiyati = u.SatisFiyati,
+                        Tarih = DateTime.Now,
+                        Saat = DateTime.Now
                     };
-                    db.Entry(s).State=System.Data.Entity.EntityState.Added;
+                    db.Entry(s).State = System.Data.Entity.EntityState.Added;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -75,16 +75,38 @@ namespace MVC_StokTakip.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var model=db.Kullanicilar.FirstOrDefault(x=>x.KullaniciAdi==User.Identity.Name);
-                count =db.Sepet.Where(x=>x.KullaniciID==model.ID).Count();
-                ViewBag.Count=count;
-                if (count==0)
+                var model = db.Kullanicilar.FirstOrDefault(x => x.KullaniciAdi == User.Identity.Name);
+                count = db.Sepet.Where(x => x.KullaniciID == model.ID).Count();
+                ViewBag.Count = count;
+                if (count == 0)
                 {
                     ViewBag.Count = "";
                 }
                 return PartialView();
             }
             return HttpNotFound();
+        }
+        public ActionResult Arttir(int id)
+        {
+            var model = db.Sepet.Find(id);
+            model.Miktari++;
+            model.ToplamFiyati = model.BirimFiyati * model.Miktari;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Azalt(int id)
+        {
+            var model=db.Sepet.Find(id);
+            if (model.Miktari==1)
+            {
+                db.Sepet.Remove(model);
+                db.SaveChanges();
+            }
+            model.Miktari--;
+            model.ToplamFiyati=model.BirimFiyati*model.Miktari;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
