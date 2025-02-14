@@ -97,23 +97,43 @@ namespace MVC_StokTakip.Controllers
 
         public ActionResult Azalt(int id)
         {
-            var model=db.Sepet.Find(id);
-            if (model.Miktari==1)
+            var model = db.Sepet.Find(id);
+            if (model.Miktari == 1)
             {
                 db.Sepet.Remove(model);
                 db.SaveChanges();
             }
             model.Miktari--;
-            model.ToplamFiyati=model.BirimFiyati*model.Miktari;
+            model.ToplamFiyati = model.BirimFiyati * model.Miktari;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public void DinamikMiktar(int id,decimal miktari)
+        public void DinamikMiktar(int id, decimal miktari)
         {
             var model = db.Sepet.Find(id);
-            model.Miktari=miktari;
+            model.Miktari = miktari;
             model.ToplamFiyati = model.BirimFiyati * model.Miktari;
             db.SaveChanges();
+        }
+        public ActionResult Sil(int id)
+        {
+            var model=db.Sepet.Find(id);
+            db.Sepet.Remove(model);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public ActionResult HepsiniSil()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var kullaniciAdi = User.Identity.Name;
+                var model = db.Kullanicilar.FirstOrDefault(x => x.KullaniciAdi.Equals(kullaniciAdi));
+                var sil = db.Sepet.Where(x => x.KullaniciID.Equals(model.ID));
+                db.Sepet.RemoveRange(sil);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return HttpNotFound();
         }
     }
 }

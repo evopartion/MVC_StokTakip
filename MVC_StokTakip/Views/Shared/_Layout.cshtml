@@ -1,4 +1,4 @@
-﻿
+﻿@using MVC_StokTakip.Models.Entity
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,30 +38,48 @@
                     @*<li class="nav-item px-lg-3" style="color:ActiveBorder">@User.Identity.Name</a></li>*@
 
                     @*<li class="nav-item">
-            <div class="dropdown" style="color:white">
-                <a href="#" class="nav-link px-lg-4 dropdown" data-toggle="dropdown">
-                    @User.Identity.Name
-                    <i class="fa fa-caret-down" style="color:#ccc" aria-hidden="true"></i>
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">
-                        Bilgileri Güncelle
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        Çıkış
-                    </a>
-                </div>
-            </div>
-        </li>*@
+                            <div class="dropdown" style="color:white">
+                                <a href="#" class="nav-link px-lg-4 dropdown" data-toggle="dropdown">
+                                    @User.Identity.Name
+                                    <i class="fa fa-caret-down" style="color:#ccc" aria-hidden="true"></i>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">
+                                        Bilgileri Güncelle
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        Çıkış
+                                    </a>
+                                </div>
+                            </div>
+                        </li>*@
 
-                <li class="nav-item px-lg-3">
-                    <a class="nav-link" href="/Sepet/Index/">
-                        Sepet
-                        <label>
-                            @{ Html.RenderAction("TotalCount", "Sepet");}
-                        </label>
-                    </a>
-                </li>
+                    <li class="nav-item px-lg-3">
+                        <a class="nav-link" href="/Sepet/Index/">
+                            Sepet
+
+                            @{
+                                MVC_StokTakipEntities db = new MVC_StokTakipEntities();
+                                var model = db.Kullanicilar.FirstOrDefault(x => x.KullaniciAdi.Equals(User.Identity.Name));
+                                if (model != null)
+                                {
+                                    int count = db.Sepet.Where(x => x.KullaniciID.Equals(model.ID)).Count();
+                                    if (count > 0)
+                                    {
+                                        <label>
+                                            @{ Html.RenderAction("TotalCount", "Sepet");}
+                                        </label>
+                                    }
+                                    if (count == 0)
+                                    {
+                                        <label style="background-color:transparent">
+                                            @{ Html.RenderAction("TotalCount", "Sepet");}
+                                        </label>
+                                    }
+                                }
+                            }
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <div class="dropdown" style="color:white">
                             <a href="javascript:void(0);" class="nav-link px-lg-4 dropdown" data-bs-toggle="dropdown">
