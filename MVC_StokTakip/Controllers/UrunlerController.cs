@@ -18,10 +18,21 @@ namespace MVC_StokTakip.Controllers
             var model = db.Urunler.ToList();
             if (!string.IsNullOrEmpty(ara))
             {
-                model=model.Where(x=>x.UrunAdi.Contains(ara) || x.BarkodNo.Contains(ara)).ToList();
+                model = model.Where(x => x.UrunAdi.Contains(ara) || x.BarkodNo.Contains(ara)).ToList();
             }
             return View(model);
         }
+
+        public ActionResult Index2(string ara)
+        {
+            var model = db.Urunler.ToList();
+            if (!string.IsNullOrEmpty(ara))
+            {
+                model = model.Where(x => x.UrunAdi.Contains(ara) || x.BarkodNo.Contains(ara)).ToList();
+            }
+            return View(model);
+        }
+
         [HttpGet]
         public ActionResult Ekle()
         {
@@ -96,25 +107,25 @@ namespace MVC_StokTakip.Controllers
             var model = db.Urunler.Find(id);
             var urun = new MyUrunler();
             urun.ID = model.ID;
-            urun.KategoriID= model.KategoriID;
+            urun.KategoriID = model.KategoriID;
             urun.MarkaID = model.MarkaID;
-            urun.UrunAdi=model.UrunAdi;
-            urun.BarkodNo=model.BarkodNo;
-            urun.AlisFiyati=model.AlisFiyati;
+            urun.UrunAdi = model.UrunAdi;
+            urun.BarkodNo = model.BarkodNo;
+            urun.AlisFiyati = model.AlisFiyati;
             urun.SatisFiyati = model.SatisFiyati;
-            urun.Miktari=model.Miktari;
-            urun.KDV=model.KDV;
-            urun.BirimID=model.BirimID;
-            urun.Tarih=model.Tarih;
-            urun.Aciklama=model.Aciklama;
+            urun.Miktari = model.Miktari;
+            urun.KDV = model.KDV;
+            urun.BirimID = model.BirimID;
+            urun.Tarih = model.Tarih;
+            urun.Aciklama = model.Aciklama;
             Yenile(urun);
             List<Markalar> markalist = db.Markalar.Where(x => x.KategoriID == model.KategoriID).OrderBy(x => x.Marka).ToList();
             urun.MarkaListesi = (from x in markalist
-                                  select new SelectListItem
-                                  {
-                                      Text = x.Marka,
-                                      Value = x.ID.ToString()
-                                  }).ToList();
+                                 select new SelectListItem
+                                 {
+                                     Text = x.Marka,
+                                     Value = x.ID.ToString()
+                                 }).ToList();
             return View(urun);
         }
         [HttpPost]
@@ -127,11 +138,11 @@ namespace MVC_StokTakip.Controllers
                 Yenile(urun);
                 List<Markalar> markalist = db.Markalar.Where(x => x.KategoriID == model.KategoriID).OrderBy(x => x.Marka).ToList();
                 urun.MarkaListesi = (from x in markalist
-                                      select new SelectListItem
-                                      {
-                                          Text = x.Marka,
-                                          Value = x.ID.ToString()
-                                      }).ToList();
+                                     select new SelectListItem
+                                     {
+                                         Text = x.Marka,
+                                         Value = x.ID.ToString()
+                                     }).ToList();
                 return View(urun);
 
             }

@@ -387,6 +387,7 @@
     <Content Include="Views\Kullanicilar\Kaydol.cshtml" />
     <Content Include="Views\Sepet\Index.cshtml" />
     <Content Include="Views\Sepet\TotalCount.cshtml" />
+    <Content Include="Views\Urunler\Index2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
