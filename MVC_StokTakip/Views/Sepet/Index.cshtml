@@ -6,7 +6,7 @@
 <h2>@User.Identity.Name</h2>
 <h3>Sepetim</h3>
 <table class="table table-bordered">
-    <thead>
+    <thead style="background-color:aliceblue">
         <tr>
 
 
@@ -15,6 +15,8 @@
             <th>Mikarı</th>
             <th>Toplam Fiyatı</th>
             <th>Tarih</th>
+            <td></td>
+            <td></td>
 
         </tr>
     </thead>
@@ -22,14 +24,25 @@
         @foreach (var item in Model)
         {
             <tr>
-             
-               
-                <th>@item.Urunler.Kategoriler.Kategori @item.Urunler.Markalar.Marka@item.Urunler.BarkodNo-@item.Urunler.UrunAdi</th>
-                <th>@item.BirimFiyati</th>
-                <th>@item.Miktari</th>
-                <th>@item.ToplamFiyati</th>
-                <th>@item.Tarih.ToString("dd.MM.yy")</th>
-               
+
+
+                <td>@item.Urunler.Kategoriler.Kategori @item.Urunler.Markalar.Marka@item.Urunler.BarkodNo-@item.Urunler.UrunAdi</td>
+                <td>@item.BirimFiyati</td>
+                <td>
+                    <div>
+                        @Html.ActionLink("-", "Azalt", new { id = item.ID }, new { @class = "btn btn-secondary btn-sm azalt" })
+                    </div>
+                    @Html.TextBoxFor(x => item.Miktari, new { @class = "txt" })
+                    <div>
+                        @Html.ActionLink("+", "Arttir", new { id = item.ID }, new { @class = "btn btn-info btn-sm arttir" })
+                    </div>
+                </td>
+                <td>@item.ToplamFiyati</td>
+                <td>@item.Tarih.ToString("dd.MM.yy")</td>
+                <td>@Html.ActionLink("Sil", "Sil", new { id = item.ID }, new { @class = "btn btn-danger" })</td>
+                <td>@Html.ActionLink("Satın Al", "SatinAl", new { id = item.ID }, new { @class = "btn btn-success" })</td>
+
+
             </tr>
         }
     </tbody>
@@ -37,3 +50,55 @@
 <div class="container">
     @ViewBag.Tutar
 </div>
+<br />
+<br />
+<div class="container form-group">
+    @Html.ActionLink("Hepsini Satın Al", "SatinAl", null, new { @class = "btn btn-success form-control" })
+</div>
+<div class="container form-group">
+    @Html.ActionLink("Hepsini Sil", "HepsiniSil", null, new { @class = "btn btn-danger form-control" })
+</div>
+
+
+<style>
+    .txt {
+        line-height: 18px;
+       /* padding: 0 4px 10px 4px;*/
+        width: 50px !important;
+        height: 32px;
+        font-size: 14px;
+        text-align: center;
+        border: solid 1px #ccc;
+        margin-left:23px;
+    }
+
+    .arttir {
+        display:block;
+        cursor:pointer;
+        /*width:25px;*/
+      /*  background:#e2e2e2;*/
+        /*height:30px;*/
+        border:solid 1px #ccc;
+        /*text-align:center;
+        line-height:30px;*/
+/*        color:grey;*/
+        /*font-size:18px*/;
+        position:absolute;
+        margin-top:-32px;
+        margin-left:72px;
+    }
+
+    .azalt {
+        display: block;
+        cursor: pointer;
+        /*width: 25px;
+        background: #e2e2e2;
+        height: 30px;
+        border: solid 1px #ccc;
+        text-align: center;
+        line-height: 30px;
+        color: grey;
+        font-size: 18px;*/
+        position: absolute;
+    }
+</style>
