@@ -13,9 +13,13 @@ namespace MVC_StokTakip.Controllers
     {
         // GET: Urunler
         MVC_StokTakipEntities db = new MVC_StokTakipEntities();
-        public ActionResult Index()
+        public ActionResult Index(string ara)
         {
             var model = db.Urunler.ToList();
+            if (!string.IsNullOrEmpty(ara))
+            {
+                model=model.Where(x=>x.UrunAdi.Contains(ara) || x.BarkodNo.Contains(ara)).ToList();
+            }
             return View(model);
         }
         [HttpGet]

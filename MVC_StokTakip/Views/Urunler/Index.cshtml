@@ -4,13 +4,33 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            <div style="width:25%;float:left">
+                @Html.TextBox("ara", null, new { @class="form-control",@placeholder="aranacak kelimeyi gir"})
+            </div>
+            <div style="float:left;margin-left:-5px">
+                @*<input type="submit" name="btn" value="Ara" class="btn btn-info" />*@
+                @Html.ActionLink("Ara", "Index", null, new { @class = "btn btn-info", onclick = "$(this).parents('form').attr('action', $(this).attr('href'));$(this).parents('form').submit();return false;" })
+            </div>
+        </div>
+
+
+
+        
+    }
+</div>
+
+
 <h2>Ürün Listesi</h2>
 <table class="table" id="urun">
     <thead style="background-color:aliceblue">
         <tr>
             @*<th>ID</th>
-            <th>Kategori</th>
-            <th>Marka</th>*@
+                <th>Kategori</th>
+                <th>Marka</th>*@
             <th>Ürün Adı</th>
             <th>Barkod No</th>
             @*<th>Alış Fiyatı</th>*@
@@ -35,8 +55,8 @@
         {
             <tr>
                 @*<th>@Html.DisplayFor(x => item.ID)</th>
-                <td>@Html.DisplayFor(x => item.Kategoriler.Kategori)</td>
-                <td>@Html.DisplayFor(x => item.Markalar.Marka)</td>*@
+                    <td>@Html.DisplayFor(x => item.Kategoriler.Kategori)</td>
+                    <td>@Html.DisplayFor(x => item.Markalar.Marka)</td>*@
                 <td>@Html.DisplayFor(x => item.UrunAdi)</td>
                 <td>@Html.DisplayFor(x => item.BarkodNo)</td>
                 @*<td>@Html.DisplayFor(x => item.AlisFiyati)</td>*@
@@ -55,7 +75,7 @@
                     <td>@Html.ActionLink("Miktar Ekle", "MiktarEkle", new { id = item.ID }, new { @class = "btn btn-secondary" }) </td>
                 }
 
-            <td>@Html.ActionLink("Sepete Ekle", "SepeteEkle","Sepet", new { id = item.ID }, new { @class = "btn btn-success" }) </td>
+                <td>@Html.ActionLink("Sepete Ekle", "SepeteEkle", "Sepet", new { id = item.ID }, new { @class = "btn btn-success" }) </td>
             </tr>
         }
     </tbody>
