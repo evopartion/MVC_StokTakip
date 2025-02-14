@@ -22,6 +22,7 @@ namespace MVC_StokTakip.Controllers
         {
             return View();
         }
+        [HttpPost,ValidateAntiForgeryToken]
         public ActionResult Ekle2(Kategoriler p)
         {
             if (!ModelState.IsValid)
