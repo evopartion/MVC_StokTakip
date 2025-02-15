@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BirimlerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Kategoriler2Controller.cs" />
     <Compile Include="Controllers\KategorilerController.cs" />
     <Compile Include="Controllers\KullanicilarController.cs" />
     <Compile Include="Controllers\MarkalarController.cs" />
@@ -388,6 +389,7 @@
     <Content Include="Views\Sepet\Index.cshtml" />
     <Content Include="Views\Sepet\TotalCount.cshtml" />
     <Content Include="Views\Urunler\Index2.cshtml" />
+    <Content Include="Views\Kategoriler2\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,49 @@
+﻿@model MVC_StokTakip.MyModel.MyKategoriler
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<div class="container">
+    <button class="btn btn-info" data-toggle="model" data-target="#myModal">Yeni Kategori</button>
+</div>
+<div class="container">
+    <table class="table table-striped table-bordered" id="tbl">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <td>Kategori</td>
+                <td>Açıklama</td>
+                <td>Güncelle</td>
+                <td>Sil</td>
+            </tr>
+        </thead>
+        <tbody id="SetKategoriList">
+            <tr id="Load" style="color:red">
+                @*Listeleme bu bölüme aktarılacak*@
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script src="~/Scripts/jquery-3.7.0.min.js"></script>
+<script>
+    $("#Load").html("Yükleniyor...");
+    //GetKategoriList JsonResult olarak oluşturulacak
+    $.get("/Kategoriler2/GetKategoriList", null, DataBind)
+
+    //liste den çağırılacak
+    function DataBind(liste) {
+        var setData = $("#SetKategoriList");
+        for (var i = 0; i < liste.length; i++) {
+            var data = "<tr>" +
+                "<td>" + liste[i].ID + "</td>" +
+                "<td>" + liste[i].Kategori + "</td>" +
+                "<td>" + liste[i].Aciklama + "</td>" +
+                "</tr>";
+            setData.append(data);
+            $("#Load").html("");
+        }
+    }
+</script>
