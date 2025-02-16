@@ -73,6 +73,7 @@
 
 
 
+
 <script src="~/Scripts/jquery-3.7.0.min.js"></script>
 <script>
     $("#Load").html("Yükleniyor...");
@@ -87,6 +88,8 @@
                 "<td>" + liste[i].ID + "</td>" +
                 "<td>" + liste[i].Kategori + "</td>" +
                 "<td>" + liste[i].Aciklama + "</td>" +
+                "<td>" + "<a href='#' class='btn btn-success' onclick='EditCategory(" + liste[i].ID+")'>Güncelle</a>"+"</td>"+
+                "<td>" + "<a href='#' class='btn btn-danger' onclick='DeleteCategory(" + liste[i].ID+")'>Sil</a>"+"</td>"+
                 "</tr>";
             setData.append(data);
             $("#Load").html("");

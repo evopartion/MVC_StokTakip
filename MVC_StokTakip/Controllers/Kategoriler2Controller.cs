@@ -1,5 +1,6 @@
 ﻿using MVC_StokTakip.Models.Entity;
 using MVC_StokTakip.MyModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace MVC_StokTakip.Controllers
 {
     public class Kategoriler2Controller : Controller
     {
-        MVC_StokTakipEntities db=new MVC_StokTakipEntities();
+        MVC_StokTakipEntities db = new MVC_StokTakipEntities();
         // GET: Kategoriler2
         public ActionResult Index()
         {
@@ -19,19 +20,19 @@ namespace MVC_StokTakip.Controllers
 
         public JsonResult GetKategoriList()
         {
-            List<MyKategoriler>liste=db.Kategoriler.Select(x=>new MyKategoriler
+            List<MyKategoriler> liste = db.Kategoriler.Select(x => new MyKategoriler
             {
                 ID = x.ID,
                 Kategori = x.Kategori,
                 Aciklama = x.Aciklama
             }).ToList();
-            return Json(liste,JsonRequestBehavior.AllowGet);
+            return Json(liste, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost,ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Ekle(Kategoriler p)
         {
-            db.Entry(p).State=System.Data.Entity.EntityState.Added;
+            db.Entry(p).State = System.Data.Entity.EntityState.Added;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -48,6 +49,18 @@ namespace MVC_StokTakip.Controllers
             db.Entry(p).State = System.Data.Entity.EntityState.Deleted;
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public JsonResult GetEditDeleteCategory(int ID)
+        {
+            var model = db.Kategoriler.FirstOrDefault(x => x.ID == ID);
+            string value = "";
+            value = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+
+            });
+             return Json(value,JsonRequestBehavior.AllowGet);
         }
     }
 }
