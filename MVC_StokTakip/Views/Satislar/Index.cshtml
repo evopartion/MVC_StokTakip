@@ -31,8 +31,9 @@
             <th>@Html.DisplayFor(x=>item.ToplamFiyati)</th>
             <th>@Html.DisplayFor(x=>item.KDV)</th>
             <th>@Html.DisplayFor(x=>item.Urunler.Birimler.Birim)</th>
-            <th>@Html.DisplayFor(x=>item.Tarih)</th>
-            <th>@Html.DisplayFor(x=>item.Saat)</th>
+            <th>@item.Tarih.ToString("ddd.MM.yyyy")</th>
+            <th>@item.Saat.ToString("ddd.MM.yyyy")</th>
+            @*<th>@item.Saat.ToString("ddd.MM.yyyy HH:mm:ss")</th>*@
         </tr>
     }
 </table>
