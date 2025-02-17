@@ -11,10 +11,12 @@ namespace MVC_StokTakip.Models.Entity
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Roller
     {
         public int ID { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public string Rol { get; set; }
     }
 }

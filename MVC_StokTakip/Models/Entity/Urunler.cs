@@ -11,7 +11,8 @@ namespace MVC_StokTakip.Models.Entity
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Urunler
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,18 +23,29 @@ namespace MVC_StokTakip.Models.Entity
         }
     
         public int ID { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public int KategoriID { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public int MarkaID { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public string UrunAdi { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public string BarkodNo { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public decimal AlisFiyati { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public decimal SatisFiyati { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public decimal Miktari { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public int KDV { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public int BirimID { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public System.DateTime Tarih { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public string Aciklama { get; set; }
-    
+
         public virtual Birimler Birimler { get; set; }
         public virtual Kategoriler Kategoriler { get; set; }
         public virtual Markalar Markalar { get; set; }

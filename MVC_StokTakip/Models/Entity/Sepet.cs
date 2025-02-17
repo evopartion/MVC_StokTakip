@@ -11,16 +11,24 @@ namespace MVC_StokTakip.Models.Entity
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Sepet
     {
         public int ID { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public int UrunID { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public decimal BirimFiyati { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public decimal Miktari { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public decimal ToplamFiyati { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public System.DateTime Tarih { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public System.DateTime Saat { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public int KullaniciID { get; set; }
     
         public virtual Kullanicilar Kullanicilar { get; set; }

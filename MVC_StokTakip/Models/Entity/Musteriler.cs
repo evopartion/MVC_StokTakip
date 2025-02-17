@@ -11,17 +11,27 @@ namespace MVC_StokTakip.Models.Entity
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Musteriler
     {
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public int ID { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public string AdiSoyadi { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public string Telefon { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public string Adres { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public string Email { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public string Resim { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public System.DateTime KayitTarihi { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public decimal Puani { get; set; }
+        [Required(ErrorMessage = "Boþ Býrakýlamaz")]
         public string Aciklama { get; set; }
     }
 }
