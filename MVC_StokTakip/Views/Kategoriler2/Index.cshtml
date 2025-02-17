@@ -71,6 +71,85 @@
     </div>
 }
 
+@using (Html.BeginForm("Guncelle", "Kategoriler2", FormMethod.Post))
+{
+    <div class="container">
+        <div class="modal" id="myModal2">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Modal Popup Kategori Güncelleme</h4>
+                        <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            ID:@Html.TextBoxFor(x => x.ID, new { @id = "id", @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            Kategori:@Html.TextBoxFor(x => x.Kategori, new { @id = "kategori", @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            Açıklama:@Html.TextBoxFor(x => x.Aciklama, new { @id = "aciklama", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group container">
+                            <div style="float:left">
+                                <button class="btn btn-success">Güncelle</button>
+                            </div>
+                            <div style="float:right">
+                                <button class="btn btn-dark" data-dismiss="modal">Kapat</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("Sil", "Kategoriler2", FormMethod.Post))
+{
+    <div class="container">
+        <div class="modal" id="myModal3">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Modal Popup Kategori Silme</h4>
+                        <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            ID:@Html.TextBoxFor(x => x.ID, new { @id = "id2", @class = "form-control",@readonly="true" })
+                        </div>
+                        <div class="form-group">
+                            Kategori:@Html.TextBoxFor(x => x.Kategori, new { @id = "kategori2", @class = "form-control", @readonly = "true" })
+                        </div>
+                        <div class="form-group">
+                            Açıklama:@Html.TextBoxFor(x => x.Aciklama, new { @id = "aciklama2", @class = "form-control", @readonly = "true" })
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group container">
+                            <div style="float:left">
+                                <button class="btn btn-danger">Sil</button>
+                            </div>
+                            <div style="float:right">
+                                <button class="btn btn-dark" data-dismiss="modal">Kapat</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+}
 
 
 
@@ -88,11 +167,59 @@
                 "<td>" + liste[i].ID + "</td>" +
                 "<td>" + liste[i].Kategori + "</td>" +
                 "<td>" + liste[i].Aciklama + "</td>" +
-                "<td>" + "<a href='#' class='btn btn-success' onclick='EditCategory(" + liste[i].ID+")'>Güncelle</a>"+"</td>"+
-                "<td>" + "<a href='#' class='btn btn-danger' onclick='DeleteCategory(" + liste[i].ID+")'>Sil</a>"+"</td>"+
+                "<td>" + "<a href='#' class='btn btn-success' onclick='EditCategory(" + liste[i].ID + ")'>Güncelle</a>" + "</td>" +
+                "<td>" + "<a href='#' class='btn btn-danger' onclick='DeleteCategory(" + liste[i].ID + ")'>Sil</a>" + "</td>" +
                 "</tr>";
+
             setData.append(data);
             $("#Load").html("");
         }
     }
+
+    //function EditCategory(ID) {
+    //    var url = "/Kategoriler2/GetEditDeleteCategory?ID=" + ID;
+    //    $("#myModal2").modal();
+    //    $.ajax({
+
+    //        url: url,
+    //        type: "get",
+    //        success: function (data) {
+    //            //console.log("Veri başarıyla alındı:", data);
+    //            var obj = JSON.parse(data);
+    //            $("#id").val(obj.ID);
+    //            $("#Kategori").val(obj.Kategori);
+    //            $("#Aciklama").val(obj.Aciklama);
+    //        }
+    //    });
+    //}
+    function EditCategory(ID) {
+        var url = "/Kategoriler2/GetEditDeleteCategory?ID=" + ID;
+        $.ajax({
+            url: url,
+            type: "get",
+            success: function (data) {
+                var obj = JSON.parse(data);
+                $("#id").val(obj.ID);
+                $("#kategori").val(obj.Kategori);
+                $("#aciklama").val(obj.Aciklama);
+                $("#myModal2").modal('show');  // Modal'ı manuel aç
+            }
+        });
+    }
+
+    function DeleteCategory(ID) {
+        var url = "/Kategoriler2/GetEditDeleteCategory?ID=" + ID;
+        $.ajax({
+            url: url,
+            type: "get",
+            success: function (data) {
+                var obj = JSON.parse(data);
+                $("#id2").val(obj.ID);
+                $("#kategori2").val(obj.Kategori);
+                $("#aciklama2").val(obj.Aciklama);
+                $("#myModal3").modal('show');  // Modal'ı manuel aç
+            }
+        });
+    }
+
 </script>
