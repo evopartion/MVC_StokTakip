@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MVC_StokTakip.Models.Entity;
 using MVC_StokTakip.MyModel;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace MVC_StokTakip.Controllers
 {
@@ -156,6 +157,59 @@ namespace MVC_StokTakip.Controllers
             db.Entry(model).State = System.Data.Entity.EntityState.Deleted;
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        public JsonResult ExcelExport()
+        {
+            try
+            {
+                var liste= db.Urunler.ToList();
+                Excel.Application application = new Excel.Application();
+                Excel.Workbook workbook = application.Workbooks.Add(System.Reflection.Missing.Value);
+                Excel.Worksheet worksheet = workbook.ActiveSheet;
+                worksheet.Cells[1, 1] = "ID";
+                worksheet.Cells[1, 2] = "Ürün Adı";
+                worksheet.Cells[1, 3] = "Barkod No";
+                worksheet.Cells[1, 4] = "Fiyatı";
+                worksheet.Cells[1, 5] = "Miktarı";
+                //worksheet.Cells[1, 6] = "Tarih";
+                int row = 2;
+                foreach (var item in liste)
+                {
+                    worksheet.Cells[row, 1] = item.ID;
+                    worksheet.Cells[row, 2] = item.UrunAdi;
+                    worksheet.Cells[row, 3] = item.BarkodNo;
+                    worksheet.Cells[row, 4] = item.SatisFiyati;
+                    worksheet.Cells[row, 5] = item.Miktari;
+                    //worksheet.Cells[row, 6] = item.Tarih;
+                    worksheet.Cells[row, 2].ColumnWidth = 15;
+                    worksheet.Cells[row, 4].ColumnWidth = 15;
+                    worksheet.Cells[row, 6].ColumnWidth = 15;
+                    row++;
+                }
+
+                var heading = worksheet.get_Range("A1", "F1");
+                heading.Font.Bold = true;
+                heading.Font.Size = 13;
+                heading.Font.Color=System.Drawing.Color.Red;
+                var sum = db.Urunler.Sum(x => x.SatisFiyati).ToString("#,###,###.00");
+                var range_sum = worksheet.get_Range("D" + row);
+                range_sum.Value2 = "Total: " + sum;
+                range_sum.Font.Bold = true;
+
+                var range_Fiyat = worksheet.get_Range("F2","F"+row);
+                range_Fiyat.NumberFormat = "#,###,###.00";
+
+
+                workbook.SaveAs("C:\\exceller\\test.xlsx");
+                workbook.Close();
+                application.Quit();
+                ViewBag.mesaj = "İşlem başarılı";
+            }
+            catch (Exception ex)
+            {
+                ViewBag.mesaj = ex.Message;
+            }
+            return Json(ViewBag.mesaj, JsonRequestBehavior.AllowGet);
         }
     }
 }

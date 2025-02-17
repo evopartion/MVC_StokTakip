@@ -9,13 +9,13 @@
     {
         <div class="form-group">
             <div style="width:25%;float:left">
-                @Html.TextBox("ara", null, new { @class="form-control",@placeholder="aranacak kelimeyi gir"})
+                @Html.TextBox("ara", null, new { @class = "form-control", @placeholder = "aranacak kelimeyi gir" })
             </div>
             <div style="float:left;margin-left:-5px">
                 @*<input type="submit" name="btn" value="Ara" class="btn btn-info" />*@
                 @Html.ActionLink("Ara", "Index", null, new { @class = "btn btn-info", onclick = "$(this).parents('form').attr('action', $(this).attr('href'));$(this).parents('form').submit();return false;" })
             </div>
-        </div>     
+        </div>
     }
 </div>
 
@@ -76,10 +76,19 @@
         }
     </tbody>
 </table>
-@if (User.IsInRole("A"))
-{
-    <div><a href="/Urunler/Ekle/" class="btn btn-success">Ürün Ekle</a></div>
-}
+<div class="form-group container">
+    <div style="float:left">
+        @if (User.IsInRole("A"))
+        {
+            <a href="/Urunler/Ekle/" class="btn btn-success">Ürün Ekle</a>
+
+        }
+    </div>
+    <div style="float:right">
+            <a href="@Url.Action("ExcelExport","Urunler")" class="btn btn-dark">Excel Export</a>
+    </div>
+
+</div>
 
 <script src="~/Scripts/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
