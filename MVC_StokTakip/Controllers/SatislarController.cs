@@ -29,6 +29,8 @@ namespace MVC_StokTakip.Controllers
                 if (ModelState.IsValid)
                 {
                     var model=db.Sepet.FirstOrDefault(x => x.ID==id);
+                    var urun= db.Urunler.FirstOrDefault(x => x.ID==model.UrunID);
+                    urun.Miktari=urun.Miktari-model.Miktari;
                     var satis = new Satislar
                     {
                         KullaniciID = model.KullaniciID,
