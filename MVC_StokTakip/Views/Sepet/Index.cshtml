@@ -41,7 +41,7 @@
                 <td>@item.ToplamFiyati</td>
                 <td>@item.Tarih.ToString("dd.MM.yy")</td>
                 <td>@Html.ActionLink("Sil", "Sil", new { id = item.ID }, new { @class = "btn btn-danger" })</td>
-                <td>@Html.ActionLink("Satın Al", "SatinAl", new { id = item.ID }, new { @class = "btn btn-success" })</td>
+                <td>@Html.ActionLink("Satın Al", "SatinAl","Satislar", new { id = item.ID }, new { @class = "btn btn-success" })</td>
 
 
             </tr>
@@ -54,7 +54,7 @@
 <br />
 <br />
 <div class="container form-group">
-    @Html.ActionLink("Hepsini Satın Al", "SatinAl", null, new { @class = "btn btn-success form-control" })
+    @Html.ActionLink("Hepsini Satın Al", "HepsiniSatinAl","Satislar", null, new { @class = "btn btn-success form-control" })
 </div>
 <div class="container form-group">
     @Html.ActionLink("Hepsini Sil", "HepsiniSil", null, new { @class = "btn btn-danger form-control" })
