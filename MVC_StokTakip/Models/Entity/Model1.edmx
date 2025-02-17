@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MVC_StokTakipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MVC_StokTakipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Birimler">
           <Key>
             <PropertyRef Name="ID" />
@@ -78,6 +78,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciID" Type="int" Nullable="false" />
           <Property Name="UrunID" Type="int" Nullable="false" />
           <Property Name="SepetID" Type="int" Nullable="false" />
           <Property Name="BarkodNo" Type="varchar" MaxLength="50" Nullable="false" />
@@ -138,6 +139,18 @@
             </Principal>
             <Dependent Role="Markalar">
               <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Satislar_Kullanicilar">
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+          <End Role="Satislar" Type="Self.Satislar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Satislar">
+              <PropertyRef Name="KullaniciID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -229,6 +242,10 @@
             <End Role="Kategoriler" EntitySet="Kategoriler" />
             <End Role="Markalar" EntitySet="Markalar" />
           </AssociationSet>
+          <AssociationSet Name="FK_Satislar_Kullanicilar" Association="Self.FK_Satislar_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Satislar" EntitySet="Satislar" />
+          </AssociationSet>
           <AssociationSet Name="FK_Satislar_Urunler" Association="Self.FK_Satislar_Urunler">
             <End Role="Urunler" EntitySet="Urunler" />
             <End Role="Satislar" EntitySet="Satislar" />
@@ -254,8 +271,7 @@
             <End Role="Urunler" EntitySet="Urunler" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MVC_StokTakipModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -292,6 +308,7 @@
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Sepet" Relationship="Self.FK_Sepet_Kullanicilar" FromRole="Kullanicilar" ToRole="Sepet" />
+          <NavigationProperty Name="Satislar" Relationship="MVC_StokTakipModel.FK_Satislar_Kullanicilar" FromRole="Kullanicilar" ToRole="Satislar" />
         </EntityType>
         <EntityType Name="KullaniciRolleri">
           <Key>
@@ -332,23 +349,6 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Rol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Satislar">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UrunID" Type="Int32" Nullable="false" />
-          <Property Name="SepetID" Type="Int32" Nullable="false" />
-          <Property Name="BarkodNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BirimFiyati" Type="Decimal" Precision="28" Scale="2" Nullable="false" />
-          <Property Name="Miktari" Type="Decimal" Precision="28" Scale="2" Nullable="false" />
-          <Property Name="ToplamFiyati" Type="Decimal" Precision="28" Scale="2" Nullable="false" />
-          <Property Name="KDV" Type="Int32" Nullable="false" />
-          <Property Name="BirimID" Type="Int32" Nullable="false" />
-          <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Saat" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Urunler" Relationship="Self.FK_Satislar_Urunler" FromRole="Satislar" ToRole="Urunler" />
         </EntityType>
         <EntityType Name="Sepet">
           <Key>
@@ -394,8 +394,8 @@
           <NavigationProperty Name="Birimler" Relationship="Self.FK_Urunler_Birimler" FromRole="Urunler" ToRole="Birimler" />
           <NavigationProperty Name="Kategoriler" Relationship="Self.FK_Urunler_Kategoriler" FromRole="Urunler" ToRole="Kategoriler" />
           <NavigationProperty Name="Markalar" Relationship="Self.FK_Urunler_Markalar" FromRole="Urunler" ToRole="Markalar" />
-          <NavigationProperty Name="Satislar" Relationship="Self.FK_Satislar_Urunler" FromRole="Urunler" ToRole="Satislar" />
           <NavigationProperty Name="Sepet" Relationship="Self.FK_Sepet_Urunler" FromRole="Urunler" ToRole="Sepet" />
+          <NavigationProperty Name="Satislar" Relationship="MVC_StokTakipModel.FK_Satislar_Urunler" FromRole="Urunler" ToRole="Satislar" />
         </EntityType>
         <Association Name="FK_Urunler_Birimler">
           <End Role="Birimler" Type="Self.Birimler" Multiplicity="1" />
@@ -457,18 +457,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Satislar_Urunler">
-          <End Role="Urunler" Type="Self.Urunler" Multiplicity="1" />
-          <End Role="Satislar" Type="Self.Satislar" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Urunler">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Satislar">
-              <PropertyRef Name="UrunID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Sepet_Urunler">
           <End Role="Urunler" Type="Self.Urunler" Multiplicity="1" />
           <End Role="Sepet" Type="Self.Sepet" Multiplicity="*" />
@@ -489,7 +477,6 @@
           <EntitySet Name="Markalar" EntityType="Self.Markalar" />
           <EntitySet Name="Musteriler" EntityType="Self.Musteriler" />
           <EntitySet Name="Roller" EntityType="Self.Roller" />
-          <EntitySet Name="Satislar" EntityType="Self.Satislar" />
           <EntitySet Name="Sepet" EntityType="Self.Sepet" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Urunler" EntityType="Self.Urunler" />
@@ -513,15 +500,63 @@
             <End Role="Markalar" EntitySet="Markalar" />
             <End Role="Urunler" EntitySet="Urunler" />
           </AssociationSet>
-          <AssociationSet Name="FK_Satislar_Urunler" Association="Self.FK_Satislar_Urunler">
-            <End Role="Urunler" EntitySet="Urunler" />
-            <End Role="Satislar" EntitySet="Satislar" />
-          </AssociationSet>
           <AssociationSet Name="FK_Sepet_Urunler" Association="Self.FK_Sepet_Urunler">
             <End Role="Urunler" EntitySet="Urunler" />
             <End Role="Sepet" EntitySet="Sepet" />
           </AssociationSet>
+          <EntitySet Name="Satislar" EntityType="MVC_StokTakipModel.Satislar" />
+          <AssociationSet Name="FK_Satislar_Kullanicilar" Association="MVC_StokTakipModel.FK_Satislar_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Satislar" EntitySet="Satislar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Satislar_Urunler" Association="MVC_StokTakipModel.FK_Satislar_Urunler">
+            <End Role="Urunler" EntitySet="Urunler" />
+            <End Role="Satislar" EntitySet="Satislar" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Satislar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciID" Type="Int32" Nullable="false" />
+          <Property Name="UrunID" Type="Int32" Nullable="false" />
+          <Property Name="SepetID" Type="Int32" Nullable="false" />
+          <Property Name="BarkodNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BirimFiyati" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="Miktari" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="ToplamFiyati" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="KDV" Type="Int32" Nullable="false" />
+          <Property Name="BirimID" Type="Int32" Nullable="false" />
+          <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Saat" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Kullanicilar" Relationship="MVC_StokTakipModel.FK_Satislar_Kullanicilar" FromRole="Satislar" ToRole="Kullanicilar" />
+          <NavigationProperty Name="Urunler" Relationship="MVC_StokTakipModel.FK_Satislar_Urunler" FromRole="Satislar" ToRole="Urunler" />
+        </EntityType>
+        <Association Name="FK_Satislar_Kullanicilar">
+          <End Type="MVC_StokTakipModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.Satislar" Role="Satislar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Satislar">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Satislar_Urunler">
+          <End Type="MVC_StokTakipModel.Urunler" Role="Urunler" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.Satislar" Role="Satislar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Satislar">
+              <PropertyRef Name="UrunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -603,23 +638,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Satislar">
-            <EntityTypeMapping TypeName="MVC_StokTakipModel.Satislar">
-              <MappingFragment StoreEntitySet="Satislar">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="UrunID" ColumnName="UrunID" />
-                <ScalarProperty Name="SepetID" ColumnName="SepetID" />
-                <ScalarProperty Name="BarkodNo" ColumnName="BarkodNo" />
-                <ScalarProperty Name="BirimFiyati" ColumnName="BirimFiyati" />
-                <ScalarProperty Name="Miktari" ColumnName="Miktari" />
-                <ScalarProperty Name="ToplamFiyati" ColumnName="ToplamFiyati" />
-                <ScalarProperty Name="KDV" ColumnName="KDV" />
-                <ScalarProperty Name="BirimID" ColumnName="BirimID" />
-                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
-                <ScalarProperty Name="Saat" ColumnName="Saat" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Sepet">
             <EntityTypeMapping TypeName="MVC_StokTakipModel.Sepet">
               <MappingFragment StoreEntitySet="Sepet">
@@ -660,6 +678,24 @@
                 <ScalarProperty Name="BirimID" ColumnName="BirimID" />
                 <ScalarProperty Name="Tarih" ColumnName="Tarih" />
                 <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Satislar">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.Satislar">
+              <MappingFragment StoreEntitySet="Satislar">
+                <ScalarProperty Name="Saat" ColumnName="Saat" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="BirimID" ColumnName="BirimID" />
+                <ScalarProperty Name="KDV" ColumnName="KDV" />
+                <ScalarProperty Name="ToplamFiyati" ColumnName="ToplamFiyati" />
+                <ScalarProperty Name="Miktari" ColumnName="Miktari" />
+                <ScalarProperty Name="BirimFiyati" ColumnName="BirimFiyati" />
+                <ScalarProperty Name="BarkodNo" ColumnName="BarkodNo" />
+                <ScalarProperty Name="SepetID" ColumnName="SepetID" />
+                <ScalarProperty Name="UrunID" ColumnName="UrunID" />
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

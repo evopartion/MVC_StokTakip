@@ -15,6 +15,7 @@ namespace MVC_StokTakip.Models.Entity
     public partial class Satislar
     {
         public int ID { get; set; }
+        public int KullaniciID { get; set; }
         public int UrunID { get; set; }
         public int SepetID { get; set; }
         public string BarkodNo { get; set; }
@@ -26,6 +27,7 @@ namespace MVC_StokTakip.Models.Entity
         public System.DateTime Tarih { get; set; }
         public System.DateTime Saat { get; set; }
     
+        public virtual Kullanicilar Kullanicilar { get; set; }
         public virtual Urunler Urunler { get; set; }
     }
 }
