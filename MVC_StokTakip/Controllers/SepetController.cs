@@ -135,5 +135,19 @@ namespace MVC_StokTakip.Controllers
             }
             return HttpNotFound();
         }
+        [HttpPost]
+        public ActionResult SeciliSil(FormCollection form)
+        {
+            string[] seciliid = form["secim_id"].Split(new char[] { ',' });
+            foreach (string id in seciliid)
+            {
+                Sepet model = db.Sepet.Find(int.Parse(id)); ;
+                db.Sepet.Remove(model);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+
+
     }
 }

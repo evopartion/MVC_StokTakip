@@ -1,112 +1,119 @@
 ﻿@model List<MVC_StokTakip.Models.Entity.Sepet>
-    
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 <h2>@User.Identity.Name</h2>
 <h3>Sepetim</h3>
-<table class="table table-bordered">
-    <thead style="background-color:aliceblue">
-        <tr>
+
+<form action="/Sepet/SeciliSil/" method="post" class="container">
+    <div class="container">
+        <input type="submit" name="submitbtn" value="Seçili Sil" class="btn btn-danger" />
+        @*@Html.ActionLink("Seçili Sil", "SeciliSil", "Sepet", null, new {@class= "btn btn-danger"})*@
+    </div>
 
 
-            <th>Ürün Bilgisi</th>
-            <th>Birim Fiyatı</th>
-            <th>Mikarı</th>
-            <th>Toplam Fiyatı</th>
-            <th>Tarih</th>
-            <td></td>
-            <td></td>
-
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <table class="table table-bordered">
+        <thead style="background-color:aliceblue">
             <tr>
-
-
-                <td>@item.Urunler.Kategoriler.Kategori @item.Urunler.Markalar.Marka@item.Urunler.BarkodNo-@item.Urunler.UrunAdi</td>
-                <td>@item.BirimFiyati</td>
-                <td>
-                    <div>
-                        @Html.ActionLink("-", "Azalt", new { id = item.ID }, new { @class = "btn btn-secondary btn-sm azalt" })
-                    </div>
-                    @Html.TextBoxFor(x => item.Miktari, new { @class = "txt",data_id=item.ID })
-                    <div>
-                        @Html.ActionLink("+", "Arttir", new { id = item.ID }, new { @class = "btn btn-info btn-sm arttir" })
-                    </div>
-                </td>
-                <td>@item.ToplamFiyati</td>
-                <td>@item.Tarih.ToString("dd.MM.yy")</td>
-                <td>@Html.ActionLink("Sil", "Sil", new { id = item.ID }, new { @class = "btn btn-danger" })</td>
-                <td>@Html.ActionLink("Satın Al", "SatinAl","Satislar", new { id = item.ID }, new { @class = "btn btn-success" })</td>
-
-
+                <th><input type="checkbox" name="secim" id="secim" value="" /></th>
+                <th>Ürün Bilgisi</th>
+                <th>Birim Fiyatı</th>
+                <th>Miktarı</th>
+                <th>Toplam Fiyatı</th>
+                <th>Tarih</th>
+                <td></td>
+                <td></td>
             </tr>
-        }
-    </tbody>
-</table>
-<div class="container">
-    @ViewBag.Tutar
-</div>
-<br />
-<br />
-<div class="container form-group">
-    @Html.ActionLink("Hepsini Satın Al", "HepsiniSatinAl","Satislar", null, new { @class = "btn btn-success form-control" })
-</div>
-<div class="container form-group">
-    @Html.ActionLink("Hepsini Sil", "HepsiniSil", null, new { @class = "btn btn-danger form-control" })
-</div>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><input type="checkbox" id="secim_id" class="secimid" value="@item.ID" /></td>
+                    <td>@item.Urunler.Kategoriler.Kategori @item.Urunler.Markalar.Marka @item.Urunler.BarkodNo - @item.Urunler.UrunAdi</td>
+                    <td>@item.BirimFiyati</td>
+                    <td>
+                        <div>
+                            @Html.ActionLink("-", "Azalt", new { id = item.ID }, new { @class = "btn btn-secondary btn-sm azalt" })
+                        </div>
+                        @Html.TextBoxFor(x => item.Miktari, new { @class = "txt", data_id = item.ID })
+                        <div>
+                            @Html.ActionLink("+", "Arttir", new { id = item.ID }, new { @class = "btn btn-info btn-sm arttir" })
+                        </div>
+                    </td>
+                    <td>@item.ToplamFiyati</td>
+                    <td>@item.Tarih.ToString("dd.MM.yy")</td>
+                    <td>@Html.ActionLink("Sil", "Sil", new { id = item.ID }, new { @class = "btn btn-danger" })</td>
+                    <td>@Html.ActionLink("Satın Al", "SatinAl", "Satislar", new { id = item.ID }, new { @class = "btn btn-success" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
 
-<script src="~/Scripts/jquery-3.7.0.min.js"></script>
+    <div class="container">
+        @ViewBag.Tutar
+    </div>
+    <br />
+    <br />
+    <div class="container form-group">
+        @Html.ActionLink("Hepsini Satın Al", "HepsiniSatinAl", "Satislar", null, new { @class = "btn btn-success form-control" })
+    </div>
+    <div class="container form-group">
+        @Html.ActionLink("Hepsini Sil", "HepsiniSil", null, new { @class = "btn btn-danger form-control" })
+    </div>
+</form>
 
-<script>
-    $(function () {
-        $('.txt').on('change', function () {
-            var miktar = $(this).val();
-            var sepetid = $(this).attr('data-id');
-            //değer alıyor mu diye kontrol
-            /* alert("SepetID=" + sepetid + "Miktarı=" + miktar);*/
-            $.ajax({
-                url: '/Sepet/DinamikMiktar/',
-                data: { id: sepetid, miktari: miktar },
-                success: function (res) {
-                    document.location.reload();
-                }
+    <script src="~/Scripts/jquery-3.7.0.min.js"></script>
+
+    <script>
+        $(function () {
+            $('.txt').on('change', function () {
+                var miktar = $(this).val();
+                var sepetid = $(this).attr('data-id');
+                //değer alıyor mu diye kontrol
+                /* alert("SepetID=" + sepetid + "Miktarı=" + miktar);*/
+                $.ajax({
+                    url: '/Sepet/DinamikMiktar/',
+                    data: { id: sepetid, miktari: miktar },
+                    success: function (res) {
+                        document.location.reload();
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
 
 <style>
     .txt {
         line-height: 18px;
-       /* padding: 0 4px 10px 4px;*/
+        /* padding: 0 4px 10px 4px;*/
         width: 50px !important;
         height: 32px;
         font-size: 14px;
         text-align: center;
         border: solid 1px #ccc;
-        margin-left:23px;
+        margin-left: 23px;
     }
 
     .arttir {
-        display:block;
-        cursor:pointer;
+        display: block;
+        cursor: pointer;
         /*width:25px;*/
-      /*  background:#e2e2e2;*/
+        /*  background:#e2e2e2;*/
         /*height:30px;*/
-        border:solid 1px #ccc;
+        border: solid 1px #ccc;
         /*text-align:center;
         line-height:30px;*/
-/*        color:grey;*/
+        /*        color:grey;*/
         /*font-size:18px*/;
-        position:absolute;
-        margin-top:-32px;
-        margin-left:72px;
+        position: absolute;
+        margin-top: -32px;
+        margin-left: 72px;
     }
 
     .azalt {
@@ -123,3 +130,17 @@
         position: absolute;
     }
 </style>
+
+<script>
+        $(document).ready(function () {
+            $("#secim").click(function () {
+                if ($(this).is (":checked")) {
+                    $(".secimid").prop('checked', true)
+                }
+                else {
+                    $(".secimid").prop('checked', false)
+
+                }
+            });
+        });
+    </script>
