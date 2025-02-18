@@ -9,10 +9,10 @@
 @using (Html.BeginForm("SeciliSatinAl2", "Sepet", FormMethod.Post, new { @class = "container" }))
 {
 
-    foreach (var item in Model)
+    foreach (var item in Model.Where(x => x.ID != 0))
     {
         <div class="form-group">
-            ID:@Html.DisplayFor(x => item.ID, new { @class = "form-control" })
+            ID:@Html.TextBoxFor(x => item.ID, new { @class = "form-control sepetid", @readonly = "true" })
         </div>
         <hr />
         <div class="form-group">
@@ -20,7 +20,38 @@
         </div>
         <hr />
     }
-    <button type="submit" class="btn btn-info">Onay</button>
-    <a href="/Sepet/Index" class="btn btn-secondary">Çıkış</a>
-
+    <div>
+        <label style="font-weight:bold">Tutar=@ViewBag.Total</label>
+    </div>
+    <div>
+        <div style="float:left">
+            <button type="button" onclick="secili()" class="btn btn-info">Onay</button>
+        </div>
+        <div style="float:right">
+            <a href="/Sepet/Index" class="btn btn-secondary">Çıkış</a>
+        </div>
+    </div>
 }
+
+<script>
+    function secili() {
+        var ids = [];
+        $.each($(".sepetid"),
+            function (index, data) {
+                ids.push($(data).val());
+            });
+
+        $.ajax({
+            type: "POST",
+            url: "/Sepet/SeciliSatinAl2",
+            data: { ids: ids },
+            success: function (data) {
+                window.location.href = "/Sepet";
+            },
+            error: function () {
+                alert("İşlem Başarısız");
+            }
+
+        });
+    }
+</script>

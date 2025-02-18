@@ -148,18 +148,62 @@ namespace MVC_StokTakip.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public ActionResult SeciliSatinAl(List<Sepet> data=null)
+        public ActionResult SeciliSatinAl(List<Sepet> data = null)
         {
             string[] ids = data.Select(x => x.ID.ToString()).ToArray();
             decimal total = 0;
             foreach (var item in ids)
             {
                 var model = db.Sepet.Find(int.Parse(item));
-                total += model.ToplamFiyati;
+                if (int.Parse(item) != 0)
+                {
+                    total += model.ToplamFiyati;
+                }
+
             }
             ViewBag.Total = total.ToString("0.00") + "TL";
 
             return View(data);
+        }
+        [HttpPost]
+        public ActionResult SeciliSatinAl2(int[] ids)
+        {
+            var model = db.Sepet.Where(x => ids.Contains(x.ID)).ToList();
+
+            int row = 0;
+            foreach (var item in model)
+            {
+                var satis = new Satislar
+                {
+                    KullaniciID = model[row].KullaniciID,
+                    UrunID = model[row].UrunID,
+                    SepetID = model[row].ID,
+                    BarkodNo = model[row].Urunler.BarkodNo,
+                    BirimFiyati = model[row].BirimFiyati,
+                    Miktari = model[row].Miktari,
+                    ToplamFiyati = model[row].ToplamFiyati,
+                    KDV = model[row].Urunler.KDV,
+                    BirimID = model[row].Urunler.BirimID,
+                    Tarih = DateTime.Now,
+                    Saat = DateTime.Now
+                };
+                db.Satislar.Add(satis);
+                row++;
+            }
+            foreach (var item in model)
+            {
+                var urun = db.Urunler.FirstOrDefault(x => x.ID == item.UrunID);
+                if (urun != null)
+                {
+                    urun.Miktari = urun.Miktari - item.Miktari;
+                }
+            }
+
+            db.Sepet.RemoveRange(model);
+            db.SaveChanges();
+
+
+            return RedirectToAction("Index");
         }
 
     }
