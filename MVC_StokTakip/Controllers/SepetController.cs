@@ -117,7 +117,7 @@ namespace MVC_StokTakip.Controllers
         }
         public ActionResult Sil(int id)
         {
-            var model=db.Sepet.Find(id);
+            var model = db.Sepet.Find(id);
             db.Sepet.Remove(model);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -147,7 +147,20 @@ namespace MVC_StokTakip.Controllers
             }
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public ActionResult SeciliSatinAl(List<Sepet> data)
+        {
+            string[] ids = data.Select(x => x.ID.ToString()).ToArray();
+            decimal total = 0;
+            foreach (var item in ids)
+            {
+                var model = db.Sepet.Find(int.Parse(item));
+                total += model.ToplamFiyati;
+            }
+            ViewBag.Total = total.ToString("0.00") + "TL";
 
+            return View(data);
+        }
 
     }
 }

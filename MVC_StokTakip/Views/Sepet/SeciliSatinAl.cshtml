@@ -1,0 +1,26 @@
+﻿@model List<MVC_StokTakip.Models.Entity.Sepet>
+@{
+    ViewBag.Title = "SeciliSatinAl";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="container">Seçili Ürünü Satın Al</h2>
+
+@using (Html.BeginForm("SeciliSatinAl2", "Sepet", FormMethod.Post, new { @class = "container" }))
+{
+
+    foreach (var item in Model)
+    {
+        <div class="form-group">
+            ID:@Html.DisplayFor(x => item.ID, new { @class = "form-control" })
+        </div>
+        <hr />
+        <div class="form-group">
+            Ürün Adı:@Html.DisplayFor(x => item.Urunler.UrunAdi, new { @class = "form-control" })
+        </div>
+        <hr />
+    }
+    <button type="submit" class="btn btn-info">Onay</button>
+    <a href="/Sepet/Index" class="btn btn-secondary">Çıkış</a>
+
+}
