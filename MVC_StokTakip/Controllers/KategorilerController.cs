@@ -76,5 +76,21 @@ namespace MVC_StokTakip.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Markalar(int id)
+        {
+            var model=db.Markalar.Where(x=>x.Kategoriler.ID==id).ToList();
+            var kategori=db.Kategoriler.Where(x=>x.ID==id).Select(x=>x.Kategori).FirstOrDefault();
+            ViewBag.viewkategori=kategori;
+            return View(model);  
+        }
+
+        public ActionResult Urunler(int id)
+        {
+            var model = db.Urunler.Where(x => x.Kategoriler.ID == id).ToList();
+            var kategori = db.Kategoriler.Where(x => x.ID == id).Select(x => x.Kategori).FirstOrDefault();
+            ViewBag.viewkategori = kategori;
+            return View(model);
+        }
+
     }
 }

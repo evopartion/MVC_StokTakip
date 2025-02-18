@@ -395,6 +395,8 @@
     <Content Include="Views\Satislar\SatinAl.cshtml" />
     <Content Include="Views\Satislar\islem.cshtml" />
     <Content Include="Views\Satislar\HepsiniSatinAl.cshtml" />
+    <Content Include="Views\Kategoriler\Markalar.cshtml" />
+    <Content Include="Views\Kategoriler\Urunler.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
