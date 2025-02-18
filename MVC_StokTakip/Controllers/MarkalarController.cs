@@ -50,9 +50,9 @@ namespace MVC_StokTakip.Controllers
             MyMarkalar model = new MyMarkalar();
             SelecteBilgiGetir();
             var ara = db.Markalar.Find(id);
-            model.ID=ara.ID;
-            model.KategoriID=ara.KategoriID;
-            model.Aciklama=ara.Aciklama;
+            model.ID = ara.ID;
+            model.KategoriID = ara.KategoriID;
+            model.Aciklama = ara.Aciklama;
             return View(model);
         }
 
@@ -77,6 +77,15 @@ namespace MVC_StokTakip.Controllers
             db.Entry(p).State = System.Data.Entity.EntityState.Deleted;
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        public ActionResult Urunler(int id)
+        {
+            var model = db.Urunler.Where(x => x.Markalar.ID == id).ToList();
+            var kategori = db.Kategoriler.Where(x => x.ID == id).Select(x => x.Kategori).FirstOrDefault();
+            var marka = db.Markalar.Where(x => x.ID == id).Select(x => x.Marka).FirstOrDefault();
+            ViewBag.ka = kategori;
+            ViewBag.m = marka;
+            return View(model);
         }
     }
 }

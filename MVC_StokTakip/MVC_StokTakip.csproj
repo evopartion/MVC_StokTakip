@@ -397,6 +397,7 @@
     <Content Include="Views\Satislar\HepsiniSatinAl.cshtml" />
     <Content Include="Views\Kategoriler\Markalar.cshtml" />
     <Content Include="Views\Kategoriler\Urunler.cshtml" />
+    <Content Include="Views\Markalar\Urunler.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
