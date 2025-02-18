@@ -148,7 +148,7 @@ namespace MVC_StokTakip.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public ActionResult SeciliSatinAl(List<Sepet> data)
+        public ActionResult SeciliSatinAl(List<Sepet> data=null)
         {
             string[] ids = data.Select(x => x.ID.ToString()).ToArray();
             decimal total = 0;

@@ -12,88 +12,88 @@
 <form action="/Sepet/SeciliSil/" method="post" class="container">
     <div class="container">
         <div style="float:left">
-            <input type="submit" name="btnSecili" value="Seçili Satın Al" class="btn btn-info" />
+            <input type="button" name="btnSecili" value="Seçili Satın Al" class="btn btn-info" id="btnSecili" />
         </div>
         <div style="float:right">
             <input type="submit" name="submitbtn" value="Seçili Sil" class="btn btn-danger" />
-        </divstyle="float:left">
-        
-        @*@Html.ActionLink("Seçili Sil", "SeciliSil", "Sepet", null, new {@class= "btn btn-danger"})*@
-    </div>
+            </divstyle="float:left">
+
+            @*@Html.ActionLink("Seçili Sil", "SeciliSil", "Sepet", null, new {@class= "btn btn-danger"})*@
+        </div>
 
 
-    <table class="table table-bordered">
-        <thead style="background-color:aliceblue">
-            <tr>
-                <th><input type="checkbox" name="secim" id="secim" value="" /></th>
-                <th>Ürün Bilgisi</th>
-                <th>Birim Fiyatı</th>
-                <th>Miktarı</th>
-                <th>Toplam Fiyatı</th>
-                <th>Tarih</th>
-                <td></td>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+        <table class="table table-bordered">
+            <thead style="background-color:aliceblue">
                 <tr>
-                    <td><input type="checkbox" id="secim_id" class="secimid" value="@item.ID" /></td>
-                    <td>@item.Urunler.Kategoriler.Kategori @item.Urunler.Markalar.Marka @item.Urunler.BarkodNo - @item.Urunler.UrunAdi</td>
-                    <td>@item.BirimFiyati</td>
-                    <td>
-                        <div>
-                            @Html.ActionLink("-", "Azalt", new { id = item.ID }, new { @class = "btn btn-secondary btn-sm azalt" })
-                        </div>
-                        @Html.TextBoxFor(x => item.Miktari, new { @class = "txt", data_id = item.ID })
-                        <div>
-                            @Html.ActionLink("+", "Arttir", new { id = item.ID }, new { @class = "btn btn-info btn-sm arttir" })
-                        </div>
-                    </td>
-                    <td>@item.ToplamFiyati</td>
-                    <td>@item.Tarih.ToString("dd.MM.yy")</td>
-                    <td>@Html.ActionLink("Sil", "Sil", new { id = item.ID }, new { @class = "btn btn-danger" })</td>
-                    <td>@Html.ActionLink("Satın Al", "SatinAl", "Satislar", new { id = item.ID }, new { @class = "btn btn-success" })</td>
+                    <th><input type="checkbox" name="secim" id="secim" value="" /></th>
+                    <th>Ürün Bilgisi</th>
+                    <th>Birim Fiyatı</th>
+                    <th>Miktarı</th>
+                    <th>Toplam Fiyatı</th>
+                    <th>Tarih</th>
+                    <td></td>
+                    <td></td>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th><input type="checkbox" id="secim_id" class="secimid" value="@item.ID" data-id="@item.Urunler.UrunAdi" /></th>
+                        <td>@item.Urunler.Kategoriler.Kategori @item.Urunler.Markalar.Marka @item.Urunler.BarkodNo - @item.Urunler.UrunAdi</td>
+                        <td>@item.BirimFiyati</td>
+                        <td>
+                            <div>
+                                @Html.ActionLink("-", "Azalt", new { id = item.ID }, new { @class = "btn btn-secondary btn-sm azalt" })
+                            </div>
+                            @Html.TextBoxFor(x => item.Miktari, new { @class = "txt", data_id = item.ID })
+                            <div>
+                                @Html.ActionLink("+", "Arttir", new { id = item.ID }, new { @class = "btn btn-info btn-sm arttir" })
+                            </div>
+                        </td>
+                        <td>@item.ToplamFiyati</td>
+                        <td>@item.Tarih.ToString("dd.MM.yy")</td>
+                        <td>@Html.ActionLink("Sil", "Sil", new { id = item.ID }, new { @class = "btn btn-danger" })</td>
+                        <td>@Html.ActionLink("Satın Al", "SatinAl", "Satislar", new { id = item.ID }, new { @class = "btn btn-success" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
 
-    <div class="container">
-        @ViewBag.Tutar
-    </div>
-    <br />
-    <br />
-    <div class="container form-group">
-        @Html.ActionLink("Hepsini Satın Al", "HepsiniSatinAl", "Satislar", null, new { @class = "btn btn-success form-control" })
-    </div>
-    <div class="container form-group">
-        @Html.ActionLink("Hepsini Sil", "HepsiniSil", null, new { @class = "btn btn-danger form-control" })
-    </div>
+        <div class="container">
+            @ViewBag.Tutar
+        </div>
+        <br />
+        <br />
+        <div class="container form-group">
+            @Html.ActionLink("Hepsini Satın Al", "HepsiniSatinAl", "Satislar", null, new { @class = "btn btn-success form-control" })
+        </div>
+        <div class="container form-group">
+            @Html.ActionLink("Hepsini Sil", "HepsiniSil", null, new { @class = "btn btn-danger form-control" })
+        </div>
 </form>
 
-    <script src="~/Scripts/jquery-3.7.0.min.js"></script>
 
-    <script>
-        $(function () {
-            $('.txt').on('change', function () {
-                var miktar = $(this).val();
-                var sepetid = $(this).attr('data-id');
-                //değer alıyor mu diye kontrol
-                /* alert("SepetID=" + sepetid + "Miktarı=" + miktar);*/
-                $.ajax({
-                    url: '/Sepet/DinamikMiktar/',
-                    data: { id: sepetid, miktari: miktar },
-                    success: function (res) {
-                        document.location.reload();
-                    }
-                });
+
+<script>
+    $(function () {
+        $('.txt').on('change', function () {
+            var miktar = $(this).val();
+            var sepetid = $(this).attr('data-id');
+            //değer alıyor mu diye kontrol
+            /* alert("SepetID=" + sepetid + "Miktarı=" + miktar);*/
+            $.ajax({
+                url: '/Sepet/DinamikMiktar/',
+                data: { id: sepetid, miktari: miktar },
+                success: function (res) {
+                    document.location.reload();
+                }
             });
         });
-    </script>
-
+    });
+</script>
+<script src="~/Scripts/jquery-3.7.0.min.js"></script>
 <style>
     .txt {
         line-height: 18px;
@@ -138,15 +138,47 @@
 </style>
 
 <script>
-        $(document).ready(function () {
-            $("#secim").click(function () {
-                if ($(this).is (":checked")) {
-                    $(".secimid").prop('checked', true)
-                }
-                else {
-                    $(".secimid").prop('checked', false)
+    $(document).ready(function () {
+        $("#secim").click(function () {
+            if ($(this).is(":checked")) {
+                $(".secimid").prop('checked', true)
+            }
+            else {
+                $(".secimid").prop('checked', false)
 
-                }
-            });
+            }
         });
-    </script>
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnSecili").click(function () {
+            addfunction();
+        });
+    });
+    var items = [];
+    function addfunction() {
+        $.each($("#tblsepet input[type=checkbox]:checked"),
+            function (data, index) {
+                items.push({
+                    'ID': $(this).val(),
+                    'Urunler.UrunAdi': $(this).attr('data-id')
+                });
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Sepet/SeciliSatinAl",
+            data: { data: items },
+            success: function (data) {
+                document.open();
+                document.write(data);
+                document.close();
+            },
+            Error: function () {
+                alert("hata oldu xd");
+            }
+        });
+        
+    }
+</script>
